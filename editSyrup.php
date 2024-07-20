@@ -1,8 +1,8 @@
 <?php
 include 'includes/_topbar.php';
 
-$idArk = $_GET['id'];
-$sql = "SELECT * from syrup where _id = $idArk";
+$idSyrup = $_GET['id'];
+$sql = "SELECT * from syrup where _id = $idSyrup";
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
     $productId = $row['pid'];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ic_noe=$_POST['ic_noe'];
     $ic_nod=$_POST['ic_nod'];
 
-    $sql = "UPDATE `syrup` SET `sup_noe` = '$sup_noe', `sup_nod` = '$sup_nod', `igp_noe` = '$igp_noe', `igp_nod` = '$igp_nod', `if_noe` = '$if_noe', `if_nod` = '$if_nod', `is_noe` = '$is_noe', `is_nod` = '$is_nod', `ic_noe` = '$ic_noe', `ic_nod` = '$ic_nod' WHERE `syrup`.`_id` = $idArk";
+    $sql = "UPDATE `syrup` SET `sup_noe` = '$sup_noe', `sup_nod` = '$sup_nod', `igp_noe` = '$igp_noe', `igp_nod` = '$igp_nod', `if_noe` = '$if_noe', `if_nod` = '$if_nod', `is_noe` = '$is_noe', `is_nod` = '$is_nod', `ic_noe` = '$ic_noe', `ic_nod` = '$ic_nod' WHERE `syrup`.`_id` = $idSyrup";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $update = true;
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="editSyrup.php?id=<?=$idArk?>" method="post">
+                <form action="editSyrup.php?id=<?=$idSyrup?>" method="post">
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of the Product</label>
                         <input type="text" id="rate" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" value="<?= $name ?> - <?= $size?>" readonly />
