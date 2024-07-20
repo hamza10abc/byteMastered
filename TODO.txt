@@ -1,7 +1,4 @@
-EDIT KAM NAHI KAR RAHA
-COSTING SHEET
-PID ke jagah nam fetch karna hai
-Multi level form banana hai ->raw material add hoga -> main table ka data add hoga -> labour in packaging -> packaging material add hoga -> product details 
+LOT GHAN prob hai
 DOWNLOAD
 
 ---LOG TABLE BANANA HAI

@@ -1359,7 +1359,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 <body class="text-gray-800 font-inter">
   <!--sidenav -->
   <div class="fixed left-0 top-0 w-64 h-full bg-[#d8f8d8] p-4 z-50 sidebar-menu transition-transform">
-    <a href="templateInside.php" class="flex items-center pb-4 border-b border-b-gray-800">
+    <a href="dashboard.php" class="flex items-center pb-4 border-b border-b-gray-800">
       <img src="assets/dktc logo.jpg" alt="" style="height: 35px; border-radius: 50%"> <span class="ml-10 text-2xl bold">DKTC</span>
     </a>
     <ul class="mt-4">
@@ -1370,12 +1370,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
           <span class="text-sm">Dashboard</span>
         </a>
       </li>
-      <li class="mb-1 group">
+      <!-- <li class="mb-1 group">
         <a href="logtable.php" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
           <i class='bx bx-list-ul mr-3 text-lg'></i>
           <span class="text-sm">Activities</span>
         </a>
-      </li>
+      </li> -->
       <span class="text-gray-400 font-bold">DATA HOUSE</span>
       <!-- <li class="mb-1 group">
         <a href="" class="flex font-semibold items-center py-2 px-4 text-gray-900 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
@@ -1430,9 +1430,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
           <li class="mb-4">
             <a href="product.php" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Products</a>
           </li>
-          <li class="mb-4">
+          <!-- <li class="mb-4">
             <a href="productDetail.php" class="text-gray-900 text-sm flex items-center hover:text-[#f84525] before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Product Details</a>
-          </li>
+          </li> -->
         </ul>
       </li>
 
