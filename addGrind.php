@@ -90,7 +90,7 @@
                         <input type="number" id="rate" name="noe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" required />
                     </div>
                     <div class="mb-6">
-                        <label for="hid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Days</label>
+                        <label for="hid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Working hours in a day</label>
                         <input type="number" id="hid" name="hid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" required />
                     </div>
                     <div class="mb-6">
