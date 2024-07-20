@@ -18,7 +18,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sealing=$row['sealing'];
     $packing=$row['packing'];
     $other=$row['other'];
-    $unknown=$row['unknown'];
     $unit_prod_per_ghan=$row['unit_prds_per_ghan'];
 }
 
@@ -32,10 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sealing=$_POST['sealing'];
     $packing=$_POST['packing'];
     $other=$_POST['other'];
-    $unknown=$_POST['unknown'];
     $unit_prod_per_ghan=$_POST['unit_prod_per_ghan'];
 
-    $sql = "UPDATE `labour_in_packing` SET `input` = '$input', `filling` = '$filling', `sealing` = '$sealing', `packing` = '$packing', `other` = '$other', `unknown` = '$unknown', `unit_prds_per_ghan` = '$unit_prod_per_ghan' WHERE `labour_in_packing`.`_id` = $idArk";
+    $sql = "UPDATE `labour_in_packing` SET `input` = '$input', `filling` = '$filling', `sealing` = '$sealing', `packing` = '$packing', `other` = '$other', `unit_prds_per_ghan` = '$unit_prod_per_ghan' WHERE `labour_in_packing`.`_id` = $idArk";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $update = true;
@@ -110,10 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="mb-6">
                         <label for="other" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Other</label>
                         <input type="number" id="other" name="other" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" value="<?=$other?>" required />
-                    </div>
-                    <div class="mb-6">
-                        <label for="unknown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unknown</label>
-                        <input type="number" id="unknown" name="unknown" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" value="<?=$unknown?>" required />
                     </div>
                     
                     

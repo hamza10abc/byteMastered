@@ -7,13 +7,13 @@
         $pid=$_POST['pid'];
         $input=$_POST['input'];
         $other=$_POST['other'];
-        $unknown=$_POST['unknown'];
+        
         
         $filling=$_POST['filling'];
         $sealing=$_POST['sealing'];
         $packing=$_POST['packing'];
         $unit_prod_per_ghan=$_POST['unit_prod_per_ghan'];
-        $sql = "INSERT INTO `labour_in_packing` (`pid`, `input`,`filling`, `sealing`, `packing`, `other`, `unknown`, `unit_prds_per_ghan`) VALUES ('$pid', '$input', '$filling', '$sealing', '$packing', '$other', '$unknown', '$unit_prod_per_ghan')";
+        $sql = "INSERT INTO `labour_in_packing` (`pid`, `input`,`filling`, `sealing`, `packing`, `other`, `unit_prds_per_ghan`) VALUES ('$pid', '$input', '$filling', '$sealing', '$packing', '$other', '$unit_prod_per_ghan')";
         $result= mysqli_query($conn, $sql);
         if($result){
             $insert = true;
@@ -104,10 +104,7 @@
                         <label for="other" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Other</label>
                         <input type="number" id="other" name="other" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" required />
                     </div>
-                    <div class="mb-6">
-                        <label for="unknown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unknown</label>
-                        <input type="number" id="unknown" name="unknown" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" required />
-                    </div>
+                    
                     
                     
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>

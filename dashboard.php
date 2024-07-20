@@ -66,7 +66,7 @@ $result = mysqli_query($conn, $sql);
         </div>
 
       </div>
-      <!-- <a href="employee.php" class="text-[#f84525] font-medium text-sm hover:text-red-800">View</a> -->
+      <a href="employee.php" class="text-[#f84525] font-medium text-sm hover:text-red-800">View</a>
     </div>
   </div>
 

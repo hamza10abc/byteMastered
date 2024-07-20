@@ -51,7 +51,7 @@
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Karguzari Sealing</th>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Karguzari Packaging</th>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Other</th>
-                                <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">??????</th>
+                                <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Employee Cost/Day</th>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Cost Filling</th>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Cost Sealing</th>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Cost Packaging</th>
@@ -63,6 +63,24 @@
 
 
                         <?php
+
+                        $sqlEmpData = "SELECT SUM(gross_salary) from employee";
+                        $runSqlEmpData = mysqli_query($conn, $sqlEmpData);
+                        $row = mysqli_fetch_array($runSqlEmpData);
+                        $totalEmpSal = $row[0];
+                        
+
+                        $sqlCountEmp = "SELECT count(*) from employee";
+                        $runSqlCountEmp = mysqli_query($conn, $sqlCountEmp);
+                        $row = mysqli_fetch_array($runSqlCountEmp);
+                        $totalEmp = $row[0];
+                        // echo $totalEmp;
+                        
+                        $middleCal = $totalEmpSal/$totalEmp;
+
+                        $final = $middleCal/26;
+
+
                         $sql = "SELECT * FROM `labour_in_packing`";
                         $result = mysqli_query($conn, $sql);
                         $sno = 0;
@@ -76,9 +94,10 @@
                                 $size = $prodRow['sizes'];
                             }
                             $idRM = $row['_id'];
-                            $costFilling = ($row['unit_prds_per_ghan']/$row['filling'])*$row['unknown'];
-                            $costSealing = ($row['unit_prds_per_ghan']/$row['sealing'])*$row['unknown'];
-                            $costPacking = ($row['unit_prds_per_ghan']/$row['packing'])*$row['unknown'];
+                            $empCostDay = $final;
+                            $costFilling = ($row['unit_prds_per_ghan']/$row['filling'])*$empCostDay;
+                            $costSealing = ($row['unit_prds_per_ghan']/$row['sealing'])*$empCostDay;
+                            $costPacking = ($row['unit_prds_per_ghan']/$row['packing'])*$empCostDay;
                             $totalCost = $costFilling+$costPacking+$costSealing;
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
@@ -106,7 +125,7 @@
                                     " . $row['other'] . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    " . $row['unknown'] . "
+                                    " . $empCostDay . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $costFilling . "
