@@ -1,6 +1,7 @@
 EDIT KAM NAHI KAR RAHA
 COSTING SHEET
 PID ke jagah nam fetch karna hai
+Multi level form banana hai ->raw material add hoga -> main table ka data add hoga -> labour in packaging -> packaging material add hoga -> product details 
 DOWNLOAD
 
 ---LOG TABLE BANANA HAI
@@ -9,7 +10,4 @@ DOWNLOAD
 ---RAW MATERIAL KA IMAGE
 ---LOT GHAN SE REFERENCE ADD KARNA HAI
 ---SEARCH OPTION LAGANA HAI
-
-
-
-7lakh 41 thousand divided by 65
+---RAW MATERIAL SELECT KAREGE TO SIDE MEIN DIKHNA CHAIYE

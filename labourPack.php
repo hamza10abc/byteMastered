@@ -67,6 +67,14 @@
                         $result = mysqli_query($conn, $sql);
                         $sno = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
+                            $productId = $row['pid'];
+                            $sqlProduct = "SELECT name, type, sizes FROM product WHERE _id = $productId";
+                            $resultProd = mysqli_query($conn, $sqlProduct);
+                            while($prodRow = mysqli_fetch_assoc($resultProd)){
+                                $name = $prodRow['name'];
+                                $type = $prodRow['type'];
+                                $size = $prodRow['sizes'];
+                            }
                             $idRM = $row['_id'];
                             $costFilling = ($row['unit_prds_per_ghan']/$row['filling'])*$row['unknown'];
                             $costSealing = ($row['unit_prds_per_ghan']/$row['sealing'])*$row['unknown'];
@@ -75,9 +83,9 @@
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
-                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $row['pid'] . "</th>
+                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    UNIT SIZE
+                                    ". $size ."
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $row['input'] . "

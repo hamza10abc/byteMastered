@@ -73,7 +73,7 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             $idRM = $row['_id'];
                             $totalCost = $row['cover_box'] + $row['jar'] + $row['label'] + $row['cartoon'] + $row['cap'];
-                            $unitLot = 3;
+                            $unitLot = 3; //??
                             $totalCostLot = $totalCost*$unitLot;
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>

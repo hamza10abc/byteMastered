@@ -69,7 +69,7 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             $idRM = $row['_id'];
                             $totalEmpDays = ($row['sup_noe']*$row['sup_nod'])+($row['igp_noe']*$row['igp_nod'])+($row['if_noe']*$row['if_nod'])+($row['is_noe']*$row['is_nod'])+($row['ic_noe']*$row['ic_nod']);
-                            $empPerDay = 2;
+                            $empPerDay = 2; //?????
                             $totalCost = $empPerDay*$totalEmpDays;
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
