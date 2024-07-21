@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 08:31 PM
+-- Generation Time: Jul 20, 2024 at 08:06 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,7 +50,7 @@ CREATE TABLE `arksaji` (
   `_id` int(5) NOT NULL,
   `pid` int(5) NOT NULL,
   `noe` int(3) NOT NULL,
-  `nod` float(3,2) NOT NULL,
+  `nod` float(5,3) NOT NULL,
   `salPerDay` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -59,10 +59,11 @@ CREATE TABLE `arksaji` (
 --
 
 INSERT INTO `arksaji` (`_id`, `pid`, `noe`, `nod`, `salPerDay`) VALUES
-(8, 2, 3, 3.00, 3.00),
-(10, 1, 1, 1.00, 1.00),
-(11, 2, 222, 2.00, 22.00),
-(12, 7, 5, 5.00, 5.00);
+(8, 2, 30, 33.000, 3.00),
+(13, 12, 1, 1.000, 1.00),
+(14, 13, 720, 3.990, 27.00),
+(15, 7, 34, 9.990, 54.00),
+(16, 8, 22, 32.000, 42.00);
 
 -- --------------------------------------------------------
 
@@ -74,9 +75,38 @@ CREATE TABLE `dawasaji` (
   `_id` int(5) NOT NULL,
   `pid` int(5) NOT NULL,
   `noe` int(3) NOT NULL,
-  `nod` float(3,2) NOT NULL,
+  `nod` float(5,2) NOT NULL,
   `salPerDay` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dawasaji`
+--
+
+INSERT INTO `dawasaji` (`_id`, `pid`, `noe`, `nod`, `salPerDay`) VALUES
+(4, 7, 12, 22.00, 32.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee`
+--
+
+CREATE TABLE `employee` (
+  `_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `desig` varchar(100) NOT NULL,
+  `gross_salary` float(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`_id`, `name`, `desig`, `gross_salary`) VALUES
+(3, 'Sarim', 'MTS', 123.00),
+(4, 'Hamza', 'Daily Wager', 69.00),
+(5, 'Shibli', 'Daily Wager', 100.00);
 
 -- --------------------------------------------------------
 
@@ -87,11 +117,11 @@ CREATE TABLE `dawasaji` (
 CREATE TABLE `grinding` (
   `_id` int(5) NOT NULL,
   `pid` int(5) NOT NULL,
-  `input` float(4,3) NOT NULL,
-  `output` float(4,3) NOT NULL,
+  `input` float(5,2) NOT NULL,
+  `output` float(5,2) NOT NULL,
   `noe` int(2) NOT NULL,
   `hid` float(5,2) NOT NULL,
-  `spd` float(5,3) NOT NULL
+  `spd` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -99,7 +129,8 @@ CREATE TABLE `grinding` (
 --
 
 INSERT INTO `grinding` (`_id`, `pid`, `input`, `output`, `noe`, `hid`, `spd`) VALUES
-(1, 1, 1.000, 1.000, 1, 2.00, 1.000);
+(1, 1, 17.00, 1.00, 1, 2.00, 1.00),
+(5, 8, 1.00, 1.00, 1, 15.00, 1.00);
 
 -- --------------------------------------------------------
 
@@ -115,7 +146,6 @@ CREATE TABLE `labour_in_packing` (
   `sealing` float(7,3) NOT NULL,
   `packing` float(7,3) NOT NULL,
   `other` float(7,2) NOT NULL,
-  `unknown` float(7,2) NOT NULL,
   `unit_prds_per_ghan` float(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -123,9 +153,10 @@ CREATE TABLE `labour_in_packing` (
 -- Dumping data for table `labour_in_packing`
 --
 
-INSERT INTO `labour_in_packing` (`_id`, `pid`, `input`, `filling`, `sealing`, `packing`, `other`, `unknown`, `unit_prds_per_ghan`) VALUES
-(1, 1, 1.00, 750.000, 1500.000, 750.000, 0.00, 1321.09, 14000.00),
-(2, 2, 2.00, 2.000, 2.000, 2.000, 0.00, 0.00, 2.00);
+INSERT INTO `labour_in_packing` (`_id`, `pid`, `input`, `filling`, `sealing`, `packing`, `other`, `unit_prds_per_ghan`) VALUES
+(4, 9, 1.00, 1.000, 1.000, 1.000, 1.00, 1.00),
+(5, 7, 1.00, 3.000, 4.000, 5.000, 6.00, 2.00),
+(6, 7, 1.00, 3.000, 4.000, 5.000, 6.00, 2.00);
 
 -- --------------------------------------------------------
 
@@ -175,8 +206,8 @@ CREATE TABLE `packaging_material` (
 
 INSERT INTO `packaging_material` (`_id`, `pid`, `qty`, `cover_box`, `label`, `jar`, `cartoon`, `cap`) VALUES
 (1, 1, '1', 0.999, 0.999, 0.999, 0.999, 0.999),
-(2, 2, '2', 2.000, 2.000, 2.000, 2.000, 2.000),
-(5, 3, '10 ML', 3.000, 3.000, 3.000, 3.000, 3.000);
+(2, 2, '100 ML', 1.000, 2.000, 3.000, 4.000, 5.000),
+(5, 3, '50 GM', 1.000, 2.000, 3.000, 4.000, 5.000);
 
 -- --------------------------------------------------------
 
@@ -196,7 +227,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`_id`, `name`, `type`, `sizes`) VALUES
-(1, 'abcd ajjnwnjak ajjs ', 'p', '9'),
+(1, 'Updated Name', 'As', '10 GM'),
 (2, 'boat', 'p', '66'),
 (3, 'poo poo', 'a', '8'),
 (4, 'ggg', 'x', '76'),
@@ -204,7 +235,11 @@ INSERT INTO `product` (`_id`, `name`, `type`, `sizes`) VALUES
 (6, 'sd', 'As', '1'),
 (7, 'Hamza', 'T', '100 ML'),
 (8, 'Sarim', 'Ds', '50 ML'),
-(9, 'Syed', 'S', '10 GM');
+(9, 'Syed', 'S', '10 GM'),
+(10, 'TEsting if it works', 'As', '50 GM'),
+(11, 'testing prod 2', 'As', '10 GM'),
+(12, 'testing', 'As', '100 ML'),
+(13, 'Update', 'T', '100 ML');
 
 -- --------------------------------------------------------
 
@@ -242,7 +277,7 @@ INSERT INTO `raw_material` (`_id`, `name`, `old_rate`, `final_rate`) VALUES
 (12, 'test', 455.00, 45.00),
 (13, 'test', 455.00, 45.00),
 (14, 'Hamza', 455.00, 45.00),
-(15, 'test', 455.00, 45.00),
+(15, 'test', 455.00, 450.00),
 (16, 'test', 455.00, 45.00),
 (17, 'test', 455.00, 45.00),
 (18, 'test', 455.00, 45.00),
@@ -257,7 +292,11 @@ INSERT INTO `raw_material` (`_id`, `name`, `old_rate`, `final_rate`) VALUES
 (27, 'test', 455.00, 45.00),
 (28, 'test', 455.00, 45.00),
 (29, 'test', 455.00, 45.00),
-(30, 'test', 455.00, 45.00);
+(30, 'test', 455.00, 45.00),
+(31, 'test ahmad', 123.00, 123.00),
+(32, 'Edit', 12.00, 12.00),
+(33, 'test,Shibli', 0.00, 0.00),
+(34, 'test,Shibli,test ahmad,test,Shibli', 0.00, 0.00);
 
 -- --------------------------------------------------------
 
@@ -285,7 +324,7 @@ CREATE TABLE `syrup` (
 --
 
 INSERT INTO `syrup` (`_id`, `pid`, `sup_noe`, `sup_nod`, `igp_noe`, `igp_nod`, `if_noe`, `if_nod`, `is_noe`, `is_nod`, `ic_noe`, `ic_nod`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+(5, 7, 11, 20, 30, 40, 50, 60, 70, 80, 90, 91);
 
 -- --------------------------------------------------------
 
@@ -312,9 +351,9 @@ CREATE TABLE `tablet` (
 --
 
 INSERT INTO `tablet` (`_id`, `pid`, `lc_noe`, `lc_nod`, `mx_noe`, `mx_nod`, `gr_noe`, `gr_nod`, `tb_noe`, `tb_nod`, `spd`) VALUES
-(1, 1, 1, 0.999, 1, 0.999, 1, 0.999, 1, 0.999, 0.00),
-(2, 2, 2, 2.000, 2, 2.000, 2, 2.000, 2, 2.000, 0.00),
-(5, 3, 3, 3.000, 3, 3.000, 3, 3.000, 3, 3.000, 0.00);
+(1, 1, 1, 0.999, 1, 0.999, 1, 0.999, 1, 0.999, 10.00),
+(2, 2, 1, 2.000, 3, 4.000, 5, 6.000, 7, 8.000, 9.00),
+(5, 3, 3, 3.000, 3, 3.000, 3, 3.000, 3, 3.000, 10.00);
 
 --
 -- Indexes for dumped tables
@@ -339,6 +378,12 @@ ALTER TABLE `arksaji`
 ALTER TABLE `dawasaji`
   ADD PRIMARY KEY (`_id`),
   ADD KEY `fk_dawasaji_product` (`pid`);
+
+--
+-- Indexes for table `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`_id`);
 
 --
 -- Indexes for table `grinding`
@@ -416,25 +461,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `arksaji`
 --
 ALTER TABLE `arksaji`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `dawasaji`
 --
 ALTER TABLE `dawasaji`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `grinding`
 --
 ALTER TABLE `grinding`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `labour_in_packing`
 --
 ALTER TABLE `labour_in_packing`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `lot_ghan`
@@ -452,7 +503,7 @@ ALTER TABLE `packaging_material`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `product_details`
@@ -464,13 +515,13 @@ ALTER TABLE `product_details`
 -- AUTO_INCREMENT for table `raw_material`
 --
 ALTER TABLE `raw_material`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `syrup`
 --
 ALTER TABLE `syrup`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tablet`
