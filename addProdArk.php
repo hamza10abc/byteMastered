@@ -206,4 +206,11 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
 </div>
 
 
+<script>
+    function sureDel() {
+  alert("Are you sure you want to delete the item?");
+}
+</script>
+
+
 <?php include 'includes/_bottombar.php' ?>

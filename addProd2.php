@@ -138,21 +138,7 @@ $insert = false;
 
             <div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div class=" p-4">
-                        <p>Search</p>
-
-                    </div>
-                    <div class=" p-4 col-start-4">
-                        <!-- <a href="addProd3.php"> -->
-                            <button class="bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                <i class='bx bx-plus-medical'></i>
-                                <span class="mx-1">Add Item</span>
-                            </button>
-                        <!-- </a> -->
-
-                    </div>
-                </div>
+                
                 <div>
 
 
