@@ -2,27 +2,26 @@
 include 'includes/_topbar.php';
 $insert = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
 
-        $pid = $_POST['pid'];
-        $noe = $_POST['noe'];
-        $nod = $_POST['nod'];
-        $salPerDay = $_POST['salPerDay'];
-        $sql = "INSERT INTO `arksaji` (`pid`, `noe`, `nod`, `salPerDay`) VALUES ('$pid', '$noe', '$nod', '$salPerDay')";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            $insert = true;
-        } else {
-            echo "try again";
-        }
-    
+
+    $pid = $_POST['pid'];
+    $noe = $_POST['noe'];
+    $nod = $_POST['nod'];
+    $salPerDay = $_POST['salPerDay'];
+    $sql = "INSERT INTO `arksaji` (`pid`, `noe`, `nod`, `salPerDay`) VALUES ('$pid', '$noe', '$nod', '$salPerDay')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $insert = true;
+    } else {
+        echo "try again";
+    }
 }
 ?>
 
 
 <!-- Content -->
 <div class="p-6">
- 
+
 
 
 

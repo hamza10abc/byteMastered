@@ -6,7 +6,8 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     $type = $row['type'];
     $prodId = $row['_id'];
 } 
-echo $type;
+// echo $type; 
+//this is kind of a neusence it is not showing correct data might need to check
 if($type === 'As'){
     $actionLink = 'addProdArk.php';
 }else if($type === 'T'){
