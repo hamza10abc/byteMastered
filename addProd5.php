@@ -1,17 +1,25 @@
 <?php
 include 'includes/_topbar.php';
 
+$sqlProdFind = "SELECT * FROM product ORDER BY _id DESC LIMIT 1";
+$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $sizes = $row['sizes'];
+    $prodId = $row['_id'];
+    $prodName = $row['name'];
+}
+
+
 $insert = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $pid = $_POST['pid'];
+    $pid = $prodId;
     $cover_box = $_POST['cover_box'];
     $label = $_POST['label'];
     $jar = $_POST['jar'];
     $cartoon = $_POST['cartoon'];
     $cap = $_POST['cap'];
-    $qty = $_POST['qty'];
-    // INSERT INTO `packaging_material` (`_id`, `pid`, `qty`, `cover_box`, `label`, `jar`, `cartoon`, `cap`) VALUES (NULL, '2', '2', '2', '2', '2', '2', '2');
+    $qty = $sizes;
     $sql = "INSERT INTO `packaging_material` (`pid`, `qty`, `cover_box`, `label`, `jar`, `cartoon`, `cap`) VALUES ('$pid', '$qty', '$cover_box', '$label', '$jar', '$cartoon', '$cap')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
@@ -34,15 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </svg>
             <span class='sr-only'>Info</span>
                 <div>
-                <span class='font-medium'>Success alert!</span> Data has been added. -->
+                <span class='font-medium'>Success alert!</span> Data has been added. You will be redirected
                 </div>
-                <div class='flex justify-end'>
-                    <a href='packaging.php'>
-                        <div>View Data</div>
-                    </a>
-                </div>
+                
             </div>
                 ";
+                echo "<meta http-equiv='refresh' content='3;url=addProd6.php' />";
     }
     ?>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -114,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="flex justify-between mb-4 items-start">
                 <div class="font-medium">
                     <h2 class="text-xl">
-                        Add Packaging Material Data
+                        Add Packaging Material Data for --> <mark><i><?=$prodName?></i></mark>
                     </h2>
                 </div>
 
@@ -123,50 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="#" method="post">
+                <form action="addProd5.php" method="post">
                     <div class="mb-6">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                        <select name="pid" id="pid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Product--
-                            </option>
-                            <?php
-                            $sql = "SELECT * FROM `product`";
-                            $result = mysqli_query($conn, $sql);
-                            $sno = 0;
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['_id'] . "'>
-                                            " . $row['_id'] . " - " . $row['name'] . " - " . $row['sizes'] . "
-                                          </option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="mb-6">
-                        <label for="qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Quantity</label>
-                        <select name="qty" id="qty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Quantity--
-                            </option>
-                            <option value="10 ML">
-                                10 ML
-                            </option>
-                            <option value="50 ML">
-                                50 ML
-                            </option>
-                            <option value="100 ML">
-                                100 ML
-                            </option>
-                            <option value="10 GM">
-                                10 GM
-                            </option>
-                            <option value="50 GM">
-                                50 GM
-                            </option>
-                            <option value="100 GM">
-                                100 GM
-                            </option>
-                        </select>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of Product</label>
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of Product" value="<?=$prodName?> - <?=$sizes?>" readonly />
                     </div>
                     <div class="mb-6">
                         <label for="input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cover Box</label>
@@ -191,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                    <a href="addProd6.php">Submit</a>
                 </form>
 
 
