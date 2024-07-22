@@ -136,12 +136,12 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                             if (!$quantity) {
                                 $quantity = "Enter quantity";
                                 $costOfRM = "To be calculated";
+
                             } else {
                                 $costOfRM = $quantity * $final_rate;
+                                $totalRawMatUsed += $quantity;
+                                $totalCostOfRawMat += $costOfRM;
                             }
-
-                            $totalRawMatUsed += $quantity;
-                            $totalCostOfRawMat += $costOfRM;
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>

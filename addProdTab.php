@@ -1,11 +1,23 @@
 <?php include 'includes/_topbar.php' ?>
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+$sqlProdFind = "SELECT * FROM product_details ORDER BY _id DESC LIMIT 1";
+$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $productFetchID = $row['pid'];
+}
+$sqlProdName = "SELECT * FROM product where _id = $productFetchID";
+$runSqlProdFind = mysqli_query($conn, $sqlProdName);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $productName = $row['name'];
 }
 
-?>
 
+
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+// }
+
+?>
 
 <div class="p-6">
 
@@ -78,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="flex justify-between mb-4 items-start">
                 <div class="font-medium">
                     <h2 class="text-xl">
-                        Add Product Tablet
+                        Add Product Tablet - <i> <mark><?= $productName ?></mark></i>
                     </h2>
                 </div>
 
@@ -87,70 +99,100 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="addProd2.php" method="post">
-                    <div class="mb-6">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz" required />
-                    </div>
-                    <div class="mb-6">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Quantity--
-                            </option>
-                            <option value="10 ML">
-                                10 ML
-                            </option>
-                            <option value="50 ML">
-                                50 ML
-                            </option>
-                            <option value="100 ML">
-                                100 ML
-                            </option>
-                            <option value="10 GM">
-                                10 GM
-                            </option>
-                            <option value="50 GM">
-                                50 GM
-                            </option>
-                            <option value="100 GM">
-                                100 GM
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-6">
-                        <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type</label>
-                        <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Type of Product--
-                            </option>
-                            <option value="As">
-                                Arksaji
-                            </option>
-                            <option value="Ds">
-                                Dawasaji
-                            </option>
-                            <option value="T">
-                                Tablet
-                            </option>
-                            <option value="S">
-                                Syrup
-                            </option>
-                            <option value="P">
-                                Powder
-                            </option>
-                        </select>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin: 10px;">
 
+                <table class="items-center w-full bg-transparent border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">S.No.</th>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Name</th>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Amount</th>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Quantity</th>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Cost - (AxQ)</th>
+                            <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <?php
+                        $sql = "SELECT * FROM `product_details` WHERE pid = $productFetchID";
+                        $result = mysqli_query($conn, $sql);
+                        $sno = 0;
+                        $totalRawMatUsed = 0;
+                        $totalCostOfRawMat = 0;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $rawMatID = $row['raw_id'];
+                            $sqlProduct = "SELECT name, final_rate FROM raw_material WHERE _id = $rawMatID";
+                            $resultProd = mysqli_query($conn, $sqlProduct);
+                            while ($rawRow = mysqli_fetch_assoc($resultProd)) {
+                                $name = $rawRow['name'];
+                                $final_rate = $rawRow['final_rate'];
+                            }
+                            $quantity = $row['qty'];
+                            $costOfRM;
+                            if (!$quantity) {
+                                $quantity = "Enter quantity";
+                                $costOfRM = "To be calculated";
+                            } else {
+                                $costOfRM = $quantity * $final_rate;
+                            }
+
+                            $totalRawMatUsed += $quantity;
+                            $totalCostOfRawMat += $costOfRM;
+                            $sno += 1;
+                            echo "<tr class='text-gray-700 dark:text-gray-100'>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
+                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $final_rate . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $quantity . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $costOfRM . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    <a href='editRawMatCost.php?pid=" . $productFetchID . "&rmid=" . $rawMatID . "&page=" . 'T' . "'>
+                                        <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
+                                            <i class='bx bxs-edit-alt'></i>
+                                            <span class='ml-1'>Edit</span>
+                                        </button>
+                                    </a>
+                                    <a href='delRawMatCost.php?pid=" . $productFetchID . "&rmid=" . $rawMatID . "&page=" . 'T' . "'>
+                                        <button id=" . $row['_id'] . " class='delete bg-red-300 hover:bg-red-400 text-red-800 font-bold py-2 px-4 rounded inline-flex items-center' onclick='sureDel()'>
+                                            <i class='bx bx-checkbox-minus'></i>
+                                            <span class='ml-1'>Delete</span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>";
+                        }
+                        ?>
+
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Total:</td>
+                                <td>
+                                    &nbsp;&nbsp; <?= $totalRawMatUsed ?>
+                                </td>
+                                <td>
+                                    &nbsp; <?= $totalCostOfRawMat ?>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </tbody>
+                </table>
+
+
+                <div class="flex justify-between mb-4 items-start m-4">
+                    <a href="addProd4.php">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
-                        <!-- <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Previous</button> -->
-                    </div>
+                    </a>
 
-                </form>
-
-
-
+                </div>
 
 
             </div>
@@ -158,8 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     </div>
 </div>
-
-
 
 
 <?php include 'includes/_bottombar.php' ?>
