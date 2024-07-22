@@ -1,48 +1,10 @@
 <?php
 include 'includes/_topbar.php';
-
-$insert = false;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $name = $_POST['name'];
-    $name = mysqli_real_escape_string($conn, $name);
-    $type = $_POST['type'];
-    $sizes = $_POST['sizes'];
-    $sql = "INSERT INTO `product` (`name`, `type`, `sizes`) VALUES ('$name', '$type', '$sizes')";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $insert = true;
-    } else {
-        echo "try again";
-    }
-}
 ?>
 
 
 <!-- Content -->
 <div class="p-6">
-    <?php
-    if ($insert) {
-        echo "
-            <div class='flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800' role='alert'>
-                <svg class='flex-shrink-0 inline w-4 h-4 me-3' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 20'>
-                    <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z'/>
-                </svg>
-            <span class='sr-only'>Info</span>
-                <div>
-                <span class='font-medium'>Success alert!</span> Data has been added. -->
-                </div>
-                <div class='flex justify-end'>
-                    <a href='product.php'>
-                        <div>View Data</div>
-                    </a>
-                </div>
-            </div>
-                ";
-    }
-    ?>
-
-
 
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -176,9 +138,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </option>
                         </select>
                     </div>
+                    <div style="display: flex; justify-content: space-between; margin: 10px;">
 
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                    <a href="addProd2.php">Next</a>
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
+                        <!-- <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Previous</button> -->
+                    </div>
+                        
                 </form>
 
 

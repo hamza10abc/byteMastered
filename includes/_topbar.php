@@ -1461,12 +1461,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
             <span>Add Product</span>
           </button>
         </a>
-        <!-- <a href="addProdDetail.php">
-          <button id="add-new" class="ml-5">
-            <i class='bx bxs-package'></i>
-            <span>Add Detailed Product</span>
-          </button>
-        </a> -->
 
 
 

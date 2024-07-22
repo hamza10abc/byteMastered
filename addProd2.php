@@ -1,31 +1,60 @@
 <?php
 include 'includes/_topbar.php';
+$sqlProdFind = "SELECT * from product";
+$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $type = $row['type'];
+    $prodId = $row['_id'];
+} 
+echo $type;
+if($type === 'As'){
+    $actionLink = 'addProdArk.php';
+}else if($type === 'T'){
+    $actionLink = 'addProdTab.php';
+}else if($type === 'Ds'){
+    $actionLink = 'addProdDawa.php';
+}else if($type === 'S'){
+    $actionLink = 'addProdSyrup.php';
+}else if($type === 'P'){
+    $actionLink = 'addProdPowder.php';
+}else{
+    $actionLink =    "404NotFound.php";
+}
 
 $insert = false;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] =='POST'){
+        $name=$_POST['name'];
+        $sizes=$_POST['sizes'];
+        $type=$_POST['type'];
+        $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
+        $result= mysqli_query($conn, $sql);
+        if($result){
+            $insert = true;
+        }
+        else{
+            echo "try again";
+        }
+    }
 
-    $name = $_POST['name'];
-    $name = mysqli_real_escape_string($conn, $name);
-    $type = $_POST['type'];
-    $sizes = $_POST['sizes'];
-    $renderType = $type;
-    if($renderType=='As'){
-        $link = "addProdTest1.php";
-    }else{
-        $link = "addProdTest2.php";
-    }
-    $sql = "INSERT INTO `product` (`name`, `type`, `sizes`) VALUES ('$name', '$type', '$sizes')";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $insert = true;
-    } else {
-        echo "try again";
-    }
-}
 ?>
 
 
 <div class="p-6">
+        <?php
+        if($insert){
+            echo "
+            <div class='flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800' role='alert'>
+                <svg class='flex-shrink-0 inline w-4 h-4 me-3' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 20'>
+                    <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z'/>
+                </svg>
+                <span class='sr-only'>Info</span>
+                <div>
+                    <span class='font-medium'>Success alert!</span>
+                </div>
+            </div>
+                ";
+        }
+        ?>
 
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -110,20 +139,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     </div>
                     <div class=" p-4 col-start-4">
-                        <a href="addProd3.php">
+                        <!-- <a href="addProd3.php"> -->
                             <button class="bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                 <i class='bx bx-plus-medical'></i>
                                 <span class="mx-1">Add Item</span>
                             </button>
-                        </a>
+                        <!-- </a> -->
 
                     </div>
                 </div>
                 <div>
 
 
-                <form action="addProd3.php" method="post">
-
+                <form action=<?=$actionLink?> method="post">
+                    <input type="hidden" name="addComplete" value="addComplete">
+                    <input type="hidden" name="productId" value="<?=$prodId?>">
                     <table class="items-center w-full bg-transparent border-collapse">
                         <thead>
                             <tr>
@@ -160,41 +190,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                 
-                                    <input type='checkbox' value='".$row['name']."' name='rawMat[]'>
+                                    <input type='checkbox' value='".$row['_id']."' name='rawMat[]'>
                                 </td>
                             </tr>";
                             }
                             ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </tbody>
                     </table>
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    <div style="display: flex; justify-content: space-between; margin: 10px;">
+
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
+                        <button type="submit" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Previous</button>
+                    </div>
                     </form>
-                    <!-- <a href="<?=$link?>">Next</a> -->
 
                 </div>
 

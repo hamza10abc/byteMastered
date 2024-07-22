@@ -61,7 +61,19 @@ $result = mysqli_query($conn, $sql);
     <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
       <div class="flex justify-between mb-6">
         <div>
-          <div class="text-2xl font-semibold mb-1">100</div>
+          <div class="text-2xl font-semibold mb-1">
+          <?php
+              $sql = "SELECT count(*) from `employee`";
+              $result = mysqli_query($conn, $sql);
+              $row = mysqli_fetch_array($result);
+              $total = $row[0];
+              if($result){
+                echo $total;
+              }else{
+                echo "Error";
+              }
+              ?>
+          </div>
           <div class="text-sm font-medium text-gray-400">Employee</div>
         </div>
 
