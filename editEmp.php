@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </svg>
             <span class='sr-only'>Info</span>
                 <div>
-                <span class='font-medium'>Success alert!</span> Data has been added. -->
+                <span class='font-medium'>Success alert!</span> Data has been edited. -->
                 </div>
                 <div class='flex justify-end'>
                     <a href='employee.php'>

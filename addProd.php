@@ -1,10 +1,42 @@
 <?php
 include 'includes/_topbar.php';
+
+$insert = false;
+    if ($_SERVER['REQUEST_METHOD'] =='POST'){
+        $name=$_POST['name'];
+        $sizes=$_POST['sizes'];
+        $type=$_POST['type'];
+        $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
+        $result= mysqli_query($conn, $sql);
+        if($result){
+            $insert = true;
+        }
+        else{
+            echo "try again";
+        }
+    }
 ?>
 
 
 <!-- Content -->
 <div class="p-6">
+
+<?php
+        if($insert){
+            echo "
+            <div class='flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800' role='alert'>
+                <svg class='flex-shrink-0 inline w-4 h-4 me-3' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 20'>
+                    <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z'/>
+                </svg>
+                <span class='sr-only'>Info</span>
+                <div>
+                    <span class='font-medium'>Success alert!</span> You will be redirected in 3 secs.
+                </div>
+            </div>
+                ";
+                echo "<meta http-equiv='refresh' content='3;url=addProd2.php' />";
+        }
+        ?>
 
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -84,7 +116,7 @@ include 'includes/_topbar.php';
             <div>
 
 
-                <form action="addProd2.php" method="post">
+                <form action="addProd.php" method="post">
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
                         <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz" required />

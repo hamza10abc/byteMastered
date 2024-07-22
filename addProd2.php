@@ -1,12 +1,15 @@
 <?php
 include 'includes/_topbar.php';
-$sqlProdFind = "SELECT * from product";
+// $sqlProdFind = "SELECT * from product";
+$sqlProdFind = "SELECT * FROM product ORDER BY _id DESC LIMIT 1";
 $runSqlProdFind = mysqli_query($conn, $sqlProdFind);
 while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     $type = $row['type'];
     $prodId = $row['_id'];
+    $prodName = $row['name'];
 } 
 // echo $type; 
+// echo $prodId;
 //this is kind of a neusence it is not showing correct data might need to check
 if($type === 'As'){
     $actionLink = 'addProdArk.php';
@@ -19,22 +22,22 @@ if($type === 'As'){
 }else if($type === 'P'){
     $actionLink = 'addProdPowder.php';
 }else{
-    $actionLink =    "404NotFound.php";
+    $actionLink = "404NotFound.php";
 }
 
 $insert = false;
     if ($_SERVER['REQUEST_METHOD'] =='POST'){
-        $name=$_POST['name'];
-        $sizes=$_POST['sizes'];
-        $type=$_POST['type'];
-        $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
-        $result= mysqli_query($conn, $sql);
-        if($result){
-            $insert = true;
+        $rawMat =  $_POST['rawMat'];
+        $prodId = $_POST['productId'];
+    
+        $stmt = $conn->prepare("INSERT INTO product_details (raw_id, pid) VALUES (?,?)");
+        $stmt->bind_param("si", $element, $prodId);
+    
+        foreach ($rawMat as $element) {
+            $stmt->execute();
         }
-        else{
-            echo "try again";
-        }
+        $stmt->close();
+        $insert = true;
     }
 
 ?>
@@ -50,10 +53,11 @@ $insert = false;
                 </svg>
                 <span class='sr-only'>Info</span>
                 <div>
-                    <span class='font-medium'>Success alert!</span>
+                    <span class='font-medium'>Success alert!</span> You will be redirected.
                 </div>
             </div>
                 ";
+                echo "<meta http-equiv='refresh' content='3;url=".$actionLink."' />";
         }
         ?>
 
@@ -126,7 +130,7 @@ $insert = false;
             <div class="flex justify-between mb-4 items-start">
                 <div class="font-medium">
                     <h2 class="text-xl">
-                        Add Raw Material
+                        Add Raw Material for <mark><i><?=$prodName?></i></mark>
                     </h2>
                 </div>
 
@@ -152,7 +156,7 @@ $insert = false;
                 <div>
 
 
-                <form action=<?=$actionLink?> method="post">
+                <form action="addProd2.php" method="post">
                     <input type="hidden" name="addComplete" value="addComplete">
                     <input type="hidden" name="productId" value="<?=$prodId?>">
                     <table class="items-center w-full bg-transparent border-collapse">
@@ -202,7 +206,7 @@ $insert = false;
                     <div style="display: flex; justify-content: space-between; margin: 10px;">
 
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
-                        <button type="submit" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Previous</button>
+                        <!-- <button type="submit" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Previous</button> -->
                     </div>
                     </form>
 
