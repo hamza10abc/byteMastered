@@ -59,25 +59,34 @@
                         <tbody>
 
                         <?php
-                        $sql = "SELECT * FROM `lot_ghan`";
+                        // global $productId;
+                        $sql = "SELECT a.*, c.name, c.sizes from `lot_ghan` a join `product` c on a.pid = c._id;";
                         $result = mysqli_query($conn, $sql);
                         $sno = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
                             $productId = $row['pid'];
-                            $sqlProduct = "SELECT name, type, sizes FROM product WHERE _id = $productId";
-                            $resultProd = mysqli_query($conn, $sqlProduct);
-                            while($prodRow = mysqli_fetch_assoc($resultProd)){
-                                $name = $prodRow['name'];
-                                $type = $prodRow['type'];
-                                $size = $prodRow['sizes'];
+                            // echo $productId;
+                            $sqlProdRawMat = "SELECT z.*, y.* from product_details z join raw_material y on z.raw_id = y._id where z.pid = $productId";
+                            $runSqlProdRawMat = mysqli_query($conn, $sqlProdRawMat);
+                            $totalCostOfRawMat = 0;
+                            $totalRawMatUsed = 0;
+                            while($rowTest = mysqli_fetch_assoc($runSqlProdRawMat)) {
+                                
+                                $quantity = $rowTest['qty'];
+                                $final_rate = $rowTest['final_rate'];
+                                // $final_rate = 10;
+                                // echo $final_rate;
+                                $costOfRM = $quantity * $final_rate;
+                                $totalCostOfRawMat += $costOfRM;
+                                $totalRawMatUsed += $quantity;
                             }
                             $idRM = $row['_id'];
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
-                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
+                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $row['name'] . "</th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    " . $size . "
+                                    " . $row['sizes'] . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $row['sts_input'] . "
@@ -98,20 +107,20 @@
                                     " . $row['pks_output'] . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    REFERENCING
+                                    " . $totalCostOfRawMat . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    Raw material used SUM 
+                                    " . $totalRawMatUsed . "
                                 </td>
                                 
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editLot.php?id=" . $idRM . "'>
+                                    <a href='editLot.php?id=" . $row['_id'] . "'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
                                         </button>
                                     </a>
-                                    <a href='delLot.php?id=" . $idRM . "'>
+                                    <a href='delLot.php?id=" . $row['_id'] . "'>
                                         <button id=" . $row['_id'] . " class='delete bg-red-300 hover:bg-red-400 text-red-800 font-bold py-2 px-4 rounded inline-flex items-center' onclick='sureDel()'>
                                             <i class='bx bx-checkbox-minus'></i>
                                             <span class='ml-1'>Delete</span>
@@ -143,6 +152,12 @@
     </div>
 </div>
 <!-- End Content -->
+
+<script>
+    function sureDel() {
+  alert("Are you sure you want to delete the item?");
+}
+</script>
 
 
 <?php include 'includes/_bottombar.php' ?>
