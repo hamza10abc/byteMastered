@@ -1,10 +1,29 @@
 <?php
+include 'includes/_topbar.php';
+?>
+
+
+<!-- Content -->
+<div class="p-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md lg:col-span-3">
+
+                <div class="font-medium text-center">
+                    <h2 class="text-xl">
+                       <u> <b> Product Detail </b> </u>
+                    </h2>
+                </div>
+
+
+            <div>
+
+            <?php
 global $prodId;
-$sqlProdFind = "SELECT * FROM product ORDER BY _id DESC LIMIT 1";
+$prodId = $_GET['id'];
+$sqlProdFind = "SELECT * FROM product where _id = $prodId";
 $runSqlProdFind = mysqli_query($conn, $sqlProdFind);
 while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     $type = $row['type'];
-    $prodId = $row['_id'];
     $prodName = $row['name'];
     $size = $row['sizes'];
 }
@@ -409,3 +428,16 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
         </button>
     </a>
 </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Content -->
+
+
+<?php include 'includes/_bottombar.php' ?>

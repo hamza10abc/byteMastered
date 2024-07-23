@@ -18,9 +18,9 @@ $result = mysqli_query($conn, $sql);
               $result = mysqli_query($conn, $sql);
               $row = mysqli_fetch_array($result);
               $total = $row[0];
-              if($result){
+              if ($result) {
                 echo $total;
-              }else{
+              } else {
                 echo "Error";
               }
               ?>
@@ -38,14 +38,14 @@ $result = mysqli_query($conn, $sql);
         <div>
           <div class="flex items-center mb-1">
             <div class="text-2xl font-semibold">
-            <?php
+              <?php
               $sql = "SELECT count(*) from `product`";
               $result = mysqli_query($conn, $sql);
               $row = mysqli_fetch_array($result);
               $total = $row[0];
-              if($result){
+              if ($result) {
                 echo $total;
-              }else{
+              } else {
                 echo "Error";
               }
               ?>
@@ -62,17 +62,17 @@ $result = mysqli_query($conn, $sql);
       <div class="flex justify-between mb-6">
         <div>
           <div class="text-2xl font-semibold mb-1">
-          <?php
-              $sql = "SELECT count(*) from `employee`";
-              $result = mysqli_query($conn, $sql);
-              $row = mysqli_fetch_array($result);
-              $total = $row[0];
-              if($result){
-                echo $total;
-              }else{
-                echo "Error";
-              }
-              ?>
+            <?php
+            $sql = "SELECT count(*) from `employee`";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_array($result);
+            $total = $row[0];
+            if ($result) {
+              echo $total;
+            } else {
+              echo "Error";
+            }
+            ?>
           </div>
           <div class="text-sm font-medium text-gray-400">Employee</div>
         </div>
@@ -118,10 +118,7 @@ $result = mysqli_query($conn, $sql);
         </div>
       </div>
       <div>
-
-        TO ADD THE COSTING SHEET HERE
-
-
+        <?php include 'costingSheet.php' ?>
         <!-- <table class="items-center w-full bg-transparent border-collapse">
               <thead>
                 <tr>
