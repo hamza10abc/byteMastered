@@ -1,10 +1,20 @@
 <?php
 include 'includes/_topbar.php';
 
+
+$sqlProdFind = "SELECT * FROM product ORDER BY _id DESC LIMIT 1";
+$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $sizes = $row['sizes'];
+    $prodId = $row['_id'];
+    $prodName = $row['name'];
+}
+
+
 $insert = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $pid = $_POST['pid'];
+    $pid = $prodId;
     $sts_input = $_POST['sts_input'];
     $sts_output = $_POST['sts_output'];
     $prs_output = $_POST['prs_output'];
@@ -33,15 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </svg>
             <span class='sr-only'>Info</span>
                 <div>
-                <span class='font-medium'>Success alert!</span> Data has been added. -->
+                <span class='font-medium'>Success alert!</span> Data has been added. You will be redirected
                 </div>
-                <div class='flex justify-end'>
-                    <a href='lotGhan.php'>
-                        <div>View Data</div>
-                    </a>
-                </div>
+                
             </div>
                 ";
+        echo "<meta http-equiv='refresh' content='3;url=addProd4.php' />";
     }
     ?>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -107,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="flex justify-between mb-4 items-start">
                 <div class="font-medium">
                     <h2 class="text-xl">
-                        Add Lot Ghan Data
+                        Add Lot Ghan Data for <mark><i><?= $prodName ?></i></mark>
                     </h2>
                 </div>
 
@@ -118,22 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <form action="addLot.php" method="post">
                     <div class="mb-6">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                        <select name="pid" id="pid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Product--
-                            </option>
-                            <?php
-                            $sql = "SELECT * FROM `product`";
-                            $result = mysqli_query($conn, $sql);
-                            $sno = 0;
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['_id'] . "'>
-                                            " . $row['_id'] . " - " . $row['name'] . " - " . $row['sizes'] . "
-                                          </option>";
-                            }
-                            ?>
-                        </select>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of Product</label>
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of Product" value="<?= $prodName ?> - <?= $sizes ?>" readonly />
                     </div>
                     <div class="mb-6">
                         <label for="input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Store Section Input in kg</label>

@@ -907,6 +907,130 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
 
 
 
+<!-- Lot ghan detail -->
+
+<div class="border rounded-lg m-4">
+    <div class="font-medium text-center mt-4 ">
+        <h2 class="text-xl">
+            Lot ghan details
+        </h2>
+    </div>
+
+
+    <div style='overflow:auto' class='m-4'>
+                    <table class='items-center w-full bg-transparent border-collapse'>
+                        <thead>
+                            <tr>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>S.No.</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>Name</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Unit Size</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Store Input</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Store Output</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Production Input</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Production Output</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Packaging Input</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Packaging Output</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Raw Material Cost</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Raw material Used</th>
+                                <th class='px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px'>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            // global $productId;
+                            $sql = "SELECT a.*, c.name, c.sizes from `lot_ghan` a join `product` c on a.pid = c._id where pid = $prodId;";
+                            $result = mysqli_query($conn, $sql);
+                            $sno = 0;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $productId = $row['pid'];
+                                // echo $productId;
+                                $sqlProdRawMat = "SELECT z.*, y.* from product_details z join raw_material y on z.raw_id = y._id where z.pid = $productId";
+                                $runSqlProdRawMat = mysqli_query($conn, $sqlProdRawMat);
+                                $totalCostOfRawMat = 0;
+                                $totalRawMatUsed = 0;
+                                while ($rowTest = mysqli_fetch_assoc($runSqlProdRawMat)) {
+
+                                    $quantity = $rowTest['qty'];
+                                    $final_rate = $rowTest['final_rate'];
+                                    // $final_rate = 10;
+                                    // echo $final_rate;
+                                    $costOfRM = $quantity * $final_rate;
+                                    $totalCostOfRawMat += $costOfRM;
+                                    $totalRawMatUsed += $quantity;
+                                }
+                                $idRM = $row['_id'];
+                                $sno += 1;
+                                echo "<tr class='text-gray-700 dark:text-gray-100'>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
+                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $row['name'] . "</th>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['sizes'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['sts_input'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['sts_output'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['prs_input'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['prs_output'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['pks_input'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $row['pks_output'] . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $totalCostOfRawMat . "
+                                </td>
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    " . $totalRawMatUsed . "
+                                </td>
+                                
+                                <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                                    <a href='editLot.php?id=" . $row['_id'] . "'>
+                                        <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
+                                            <i class='bx bxs-edit-alt'></i>
+                                            <span class='ml-1'>Edit</span>
+                                        </button>
+                                    </a>
+                                    <a href='delLot.php?id=" . $row['_id'] . "'>
+                                        <button id=" . $row['_id'] . " class='delete bg-red-300 hover:bg-red-400 text-red-800 font-bold py-2 px-4 rounded inline-flex items-center' onclick='sureDel()'>
+                                            <i class='bx bx-checkbox-minus'></i>
+                                            <span class='ml-1'>Delete</span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>";
+                            }
+                            ?>
+
+
+
+
+
+
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+    
+</div>
+
+
+
 <div class="font-medium text-center m-4 ">
     <a href='completed.php'>
         <button id="?" class='edit bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4 rounded inline-flex items-center'>
