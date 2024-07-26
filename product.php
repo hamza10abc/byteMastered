@@ -62,7 +62,7 @@
                             $sno += 1;
                             echo "<tr class='text-gray-700 dark:text-gray-100'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
-                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $row['name'] . "</th>
+                                <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'><a href ='viewProd.php?id=".$idRM."'>" . $row['name'] . "</a></th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $row['type'] . "
                                 </td>
