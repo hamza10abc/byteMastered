@@ -6,6 +6,19 @@ $insert = false;
         $name=$_POST['name'];
         $sizes=$_POST['sizes'];
         $type=$_POST['type'];
+        if($type === 'As'){
+            $actionLink = 'addArk.php';
+        }else if($type === 'T'){
+            $actionLink = 'addTablet.php';
+        }else if($type === 'Ds'){
+            $actionLink = 'addDawa.php';
+        }else if($type === 'S'){
+            $actionLink = 'addSyrup.php';
+        }else if($type === 'P'){
+            $actionLink = 'addGrind.php';
+        }else{
+            $actionLink = "404NotFound.php";
+        }
         $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
         $result= mysqli_query($conn, $sql);
         if($result){
@@ -34,7 +47,7 @@ $insert = false;
                 </div>
             </div>
                 ";
-                echo "<meta http-equiv='refresh' content='3;url=addProd2.php' />";
+                echo "<meta http-equiv='refresh' content='3;url=".$actionLink."' />";
         }
         ?>
 

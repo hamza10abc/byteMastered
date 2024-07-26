@@ -1,6 +1,13 @@
 <?php
 include 'includes/_topbar.php';
 $insert = false;
+$sqlProdFind = "SELECT * FROM product ORDER BY _id DESC LIMIT 1";
+$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    $type = $row['type'];
+    $prodId = $row['_id'];
+    $prodName = $row['name'];
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
@@ -34,15 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </svg>
             <span class='sr-only'>Info</span>
                 <div>
-                <span class='font-medium'>Success alert!</span> Data has been added. -->
-                </div>
-                <div class='flex justify-end'>
-                    <a href='arksaji.php'>
-                        <div>View Data</div>
-                    </a>
+                <span class='font-medium'>Success alert!</span> Data has been added. You are being redirected.
                 </div>
             </div>
-                ";
+            ";
+        echo "<meta http-equiv='refresh' content='3;url=addProd2.php' />";
     }
     ?>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -60,24 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                 <form action="addArk.php" method="post">
+                    <input type="hidden" name="pid" value="<?=$prodId?>">
                     <div class="mb-6">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                        <select name="pid" id="pid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Product--
-                            </option>
-                            <?php
-                            $sql = "SELECT * FROM `product`";
-                            $result = mysqli_query($conn, $sql);
-                            $sno = 0;
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['_id'] . "'>
-                                            " . $row['_id'] . " - " . $row['name'] . " - " . $row['sizes'] . "
-                                          </option>";
-                            }
-                            ?>
-                        </select>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Employees</label>
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" value="<?=$prodId?> - <?=$prodName;?> - <?=$type?>" readonly />
                     </div>
+
+
                     <div class="mb-6">
                         <label for="noe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Employees</label>
                         <input type="number" id="rate" name="noe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.00" required />

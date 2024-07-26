@@ -46,18 +46,61 @@
             $sql = "SELECT * FROM `product`";
             $result = mysqli_query($conn, $sql);
             $sno = 0;
-            while ($row = mysqli_fetch_assoc($result)) {
-                $idRM = $row['_id'];
+            while ($row = mysqli_fetch_assoc($result)) {                
+                $idProd = $row['_id'];
+
+                $sqlAll = "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+                $rawMatDC = "SELECT * FROM `product_details` WHERE pid = $idProd";
+                $result = mysqli_query($conn, $rawMatDC);
+                $totalRawMatUsed = 0;
+                $totalCostOfRawMat = 0;
+                while ($rawMat = mysqli_fetch_assoc($result)) {
+                    $rawMatID = $rawMat['raw_id'];
+                    $sqlProduct = "SELECT name, final_rate FROM raw_material WHERE _id = $rawMatID";
+                    $resultProd = mysqli_query($conn, $sqlProduct);
+                    while ($rawRow = mysqli_fetch_assoc($resultProd)) {
+                        $name = $rawRow['name'];
+                        $final_rate = $rawRow['final_rate'];
+                    }
+                    $quantity = $rawMat['qty'];
+                    $costOfRM;
+                    if (!$quantity) {
+                        $quantity = "Enter quantity";
+                        $costOfRM = "To be calculated";
+                    } else {
+                        $costOfRM = $quantity * $final_rate;
+                        $totalRawMatUsed += $quantity;
+                        $totalCostOfRawMat += $costOfRM;
+                    }
+                }
+                
+
                 $sno += 1;
                 echo "
                     <tr class='text-gray-700 dark:text-gray-100'>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
                             
-                        <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'><a href ='viewProd.php?id=".$idRM."'>" . $row['name'] . " - " . $row['sizes'] . "
+                        <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'><a href ='viewProd.php?id=".$idProd."'>" . $row['name'] . " - " . $row['sizes'] . "
                         </a>
                         </th>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                             " . $row['type'] . "
+                        </td>
+                        <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                            " . $totalCostOfRawMat . "
                         </td>
                     </tr>
                 ";
