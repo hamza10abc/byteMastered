@@ -6,38 +6,27 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md lg:col-span-3">
-            <div class="flex justify-between mb-4 items-start">
-                <div class="font-medium">
-                    <h2 class="text-xl">
-                        Labour in Packaging
-                    </h2>
-                </div>
-
-            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                <div class=" p-4">
-                    <button class="bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                        </svg>
-                        <span>Download</span>
-                    </button>
-                    
+                <div class="flex justify-between mb-4 items-start">
+                    <div class="font-medium">
+                        <h2 class="text-xl">
+                            Labour in Packaging
+                        </h2>
+                    </div>
                 </div>
-                <div class=" p-4 col-start-4">
-                    <a href="addLabPack.php">
-                        <button class="bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <i class='bx bx-plus-medical'></i>
-                            <span class="mx-1">Add Item</span>
+                <div class="p-4 col-start-4">
+                    <a href="#">
+                        <button class="bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                            </svg>
+                            <span>Download</span>
                         </button>
                     </a>
-                    
                 </div>
             </div>
+
             <div>
-
-
-
                 <div style="overflow:auto">
                     <table class="items-center w-full bg-transparent border-collapse">
                         <thead>
@@ -62,49 +51,49 @@
                         <tbody>
 
 
-                        <?php
+                            <?php
 
-                        $sqlEmpData = "SELECT SUM(gross_salary) from employee";
-                        $runSqlEmpData = mysqli_query($conn, $sqlEmpData);
-                        $row = mysqli_fetch_array($runSqlEmpData);
-                        $totalEmpSal = $row[0];
-                        
-
-                        $sqlCountEmp = "SELECT count(*) from employee";
-                        $runSqlCountEmp = mysqli_query($conn, $sqlCountEmp);
-                        $row = mysqli_fetch_array($runSqlCountEmp);
-                        $totalEmp = $row[0];
-                        // echo $totalEmp;
-                        
-                        $middleCal = $totalEmpSal/$totalEmp;
-
-                        $final = $middleCal/26;
+                            $sqlEmpData = "SELECT SUM(gross_salary) from employee";
+                            $runSqlEmpData = mysqli_query($conn, $sqlEmpData);
+                            $row = mysqli_fetch_array($runSqlEmpData);
+                            $totalEmpSal = $row[0];
 
 
-                        $sql = "SELECT * FROM `labour_in_packing`";
-                        $result = mysqli_query($conn, $sql);
-                        $sno = 0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $productId = $row['pid'];
-                            $sqlProduct = "SELECT name, type, sizes FROM product WHERE _id = $productId";
-                            $resultProd = mysqli_query($conn, $sqlProduct);
-                            while($prodRow = mysqli_fetch_assoc($resultProd)){
-                                $name = $prodRow['name'];
-                                $type = $prodRow['type'];
-                                $size = $prodRow['sizes'];
-                            }
-                            $idRM = $row['_id'];
-                            $empCostDay = $final;
-                            $costFilling = ($row['unit_prds_per_ghan']/$row['filling'])*$empCostDay;
-                            $costSealing = ($row['unit_prds_per_ghan']/$row['sealing'])*$empCostDay;
-                            $costPacking = ($row['unit_prds_per_ghan']/$row['packing'])*$empCostDay;
-                            $totalCost = $costFilling+$costPacking+$costSealing;
-                            $sno += 1;
-                            echo "<tr class='text-gray-700 dark:text-gray-100'>
+                            $sqlCountEmp = "SELECT count(*) from employee";
+                            $runSqlCountEmp = mysqli_query($conn, $sqlCountEmp);
+                            $row = mysqli_fetch_array($runSqlCountEmp);
+                            $totalEmp = $row[0];
+                            // echo $totalEmp;
+
+                            $middleCal = $totalEmpSal / $totalEmp;
+
+                            $final = $middleCal / 26;
+
+
+                            $sql = "SELECT * FROM `labour_in_packing`";
+                            $result = mysqli_query($conn, $sql);
+                            $sno = 0;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $productId = $row['pid'];
+                                $sqlProduct = "SELECT name, type, sizes FROM product WHERE _id = $productId";
+                                $resultProd = mysqli_query($conn, $sqlProduct);
+                                while ($prodRow = mysqli_fetch_assoc($resultProd)) {
+                                    $name = $prodRow['name'];
+                                    $type = $prodRow['type'];
+                                    $size = $prodRow['sizes'];
+                                }
+                                $idRM = $row['_id'];
+                                $empCostDay = $final;
+                                $costFilling = ($row['unit_prds_per_ghan'] / $row['filling']) * $empCostDay;
+                                $costSealing = ($row['unit_prds_per_ghan'] / $row['sealing']) * $empCostDay;
+                                $costPacking = ($row['unit_prds_per_ghan'] / $row['packing']) * $empCostDay;
+                                $totalCost = $costFilling + $costPacking + $costSealing;
+                                $sno += 1;
+                                echo "<tr class='text-gray-700 dark:text-gray-100'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
                                 <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    ". $size ."
+                                    " . $size . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $row['input'] . "
@@ -154,8 +143,8 @@
                                     </a>
                                 </td>
                             </tr>";
-                        }
-                    ?>
+                            }
+                            ?>
 
 
 
