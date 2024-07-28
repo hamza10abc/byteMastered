@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 12:39 PM
+-- Generation Time: Jul 28, 2024 at 06:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,15 +51,9 @@ CREATE TABLE `arksaji` (
   `pid` int(5) NOT NULL,
   `noe` int(3) NOT NULL,
   `nod` float(5,3) NOT NULL,
-  `salPerDay` float(5,2) NOT NULL
+  `salPerDay` float(5,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `arksaji`
---
-
-INSERT INTO `arksaji` (`_id`, `pid`, `noe`, `nod`, `salPerDay`) VALUES
-(3, 42, 1, 2.000, 3.00);
 
 -- --------------------------------------------------------
 
@@ -72,7 +66,8 @@ CREATE TABLE `dawasaji` (
   `pid` int(5) NOT NULL,
   `noe` int(3) NOT NULL,
   `nod` float(5,2) NOT NULL,
-  `salPerDay` float(5,2) NOT NULL
+  `salPerDay` float(5,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -85,17 +80,18 @@ CREATE TABLE `employee` (
   `_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `desig` varchar(100) NOT NULL,
-  `gross_salary` float(10,2) NOT NULL
+  `gross_salary` float(10,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`_id`, `name`, `desig`, `gross_salary`) VALUES
-(3, 'Sarim', 'MTS', 123.00),
-(4, 'Hamza', 'Daily Wager', 69.00),
-(5, 'Shibli', 'Daily Wager', 100.00);
+INSERT INTO `employee` (`_id`, `name`, `desig`, `gross_salary`, `addedOn`) VALUES
+(3, 'Mohammad Sarim', 'MTS', 123.00, '2024-07-28 21:36:30'),
+(4, 'Hamza', 'Daily Wager', 69.00, '2024-07-28 21:36:30'),
+(5, 'Shibli', 'Daily Wager', 100.00, '2024-07-28 21:36:30');
 
 -- --------------------------------------------------------
 
@@ -110,7 +106,8 @@ CREATE TABLE `grinding` (
   `output` float(5,2) NOT NULL,
   `noe` int(2) NOT NULL,
   `hid` float(5,2) NOT NULL,
-  `spd` float(5,2) NOT NULL
+  `spd` float(5,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -127,17 +124,9 @@ CREATE TABLE `labour_in_packing` (
   `sealing` float(7,3) NOT NULL,
   `packing` float(7,3) NOT NULL,
   `other` float(7,2) NOT NULL,
-  `unit_prds_per_ghan` float(10,2) NOT NULL
+  `unit_prds_per_ghan` float(10,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `labour_in_packing`
---
-
-INSERT INTO `labour_in_packing` (`_id`, `pid`, `input`, `filling`, `sealing`, `packing`, `other`, `unit_prds_per_ghan`) VALUES
-(3, 61, 1.00, 2.000, 3.000, 4.000, 5.00, 6.00),
-(4, 55, 1.00, 2.000, 3.000, 4.000, 5.00, 6.00),
-(5, 62, 1.00, 3.000, 4.000, 5.000, 6.00, 2.00);
 
 -- --------------------------------------------------------
 
@@ -153,15 +142,9 @@ CREATE TABLE `lot_ghan` (
   `prs_output` float(5,3) NOT NULL,
   `prs_input` float(5,3) NOT NULL,
   `pks_output` float(5,3) NOT NULL,
-  `pks_input` float(5,3) NOT NULL
+  `pks_input` float(5,3) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `lot_ghan`
---
-
-INSERT INTO `lot_ghan` (`_id`, `pid`, `sts_output`, `sts_input`, `prs_output`, `prs_input`, `pks_output`, `pks_input`) VALUES
-(3, 59, 22.000, 11.000, 66.000, 4.000, 55.000, 33.000);
 
 -- --------------------------------------------------------
 
@@ -177,17 +160,9 @@ CREATE TABLE `packaging_material` (
   `label` float(5,3) NOT NULL,
   `jar` float(5,3) NOT NULL,
   `cartoon` float(5,3) NOT NULL,
-  `cap` float(5,3) NOT NULL
+  `cap` float(5,3) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `packaging_material`
---
-
-INSERT INTO `packaging_material` (`_id`, `pid`, `qty`, `cover_box`, `label`, `jar`, `cartoon`, `cap`) VALUES
-(2, 61, '1', 2.000, 3.000, 4.000, 5.000, 6.000),
-(3, 54, '1', 2.000, 34.000, 5.000, 6.000, 8.000),
-(4, 62, '100 ML', 1.000, 2.000, 3.000, 4.000, 5.000);
 
 -- --------------------------------------------------------
 
@@ -199,42 +174,9 @@ CREATE TABLE `product` (
   `_id` int(5) NOT NULL,
   `name` varchar(100) NOT NULL,
   `type` varchar(2) NOT NULL,
-  `sizes` varchar(10) NOT NULL
+  `sizes` varchar(10) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`_id`, `name`, `type`, `sizes`) VALUES
-(35, 'Hamza', 'P', '10 GM'),
-(36, 'Hamza', 'As', '10 GM'),
-(37, 'Hamza', 'As', '10 GM'),
-(38, 'testing now', 'T', '50 ML'),
-(39, 'testing now', 'T', '50 ML'),
-(40, 'kj', 'P', '50 ML'),
-(41, 'test now', 'Ds', '100 ML'),
-(42, 'test now', 'Ds', '100 ML'),
-(43, 'Sarim test', 'Ds', '100 ML'),
-(44, 'sarim sexy boi', 'P', '10 GM'),
-(45, 'shibli sexy boi', 'Ds', '100 ML'),
-(46, 'takd', 'P', '100 ML'),
-(47, 'kjwd', 'T', '10 ML'),
-(48, 'test', 'S', '100 ML'),
-(49, 'Hamza', 'T', '100 ML'),
-(50, 'lsjds', 'S', '50 ML'),
-(51, 'ljksd', 'As', '100 ML'),
-(52, 'sexy horia hai', 'S', '50 ML'),
-(53, 'tsasajksasa', 'T', '50 ML'),
-(54, 'tueqa', 'As', '50 GM'),
-(55, 'test1 with AS', 'As', '10 GM'),
-(56, 'testing for dawasaji', 'Ds', '100 ML'),
-(57, 'testing arksaji', 'As', '10 ML'),
-(58, 'testing Dawa saji', 'Ds', '100 ML'),
-(59, 'testing tablet', 'T', '10 GM'),
-(60, 'syrup test', 'S', '100 ML'),
-(61, 'powder test', 'P', '50 ML'),
-(62, 'Sarim and Hamza Sexy horia hai', 'T', '100 ML');
 
 -- --------------------------------------------------------
 
@@ -246,29 +188,9 @@ CREATE TABLE `product_details` (
   `_id` int(5) NOT NULL,
   `pid` int(5) NOT NULL,
   `raw_id` int(5) NOT NULL,
-  `qty` int(11) NOT NULL
+  `qty` int(11) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `product_details`
---
-
-INSERT INTO `product_details` (`_id`, `pid`, `raw_id`, `qty`) VALUES
-(2, 57, 11, 10),
-(3, 57, 12, 0),
-(4, 57, 13, 0),
-(5, 57, 14, 0),
-(6, 57, 15, 0),
-(8, 58, 11, 20),
-(9, 58, 32, 0),
-(10, 59, 11, 10),
-(12, 59, 13, 10),
-(13, 60, 12, 10),
-(15, 60, 14, 20),
-(16, 61, 11, 10),
-(18, 62, 10, 10),
-(19, 62, 11, 20),
-(21, 62, 13, 22);
 
 -- --------------------------------------------------------
 
@@ -280,41 +202,23 @@ CREATE TABLE `raw_material` (
   `_id` int(3) NOT NULL,
   `name` varchar(100) NOT NULL,
   `old_rate` float(8,2) NOT NULL,
-  `final_rate` float(8,2) NOT NULL
+  `final_rate` float(8,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `raw_material`
 --
 
-INSERT INTO `raw_material` (`_id`, `name`, `old_rate`, `final_rate`) VALUES
-(10, 'test', 455.00, 11.00),
-(11, 'Shibli', 22.00, 11.00),
-(12, 'test', 455.00, 45.00),
-(13, 'test', 455.00, 45.00),
-(14, 'Hamza', 455.00, 45.00),
-(15, 'test', 455.00, 450.00),
-(16, 'test', 455.00, 45.00),
-(17, 'test', 455.00, 45.00),
-(18, 'test', 455.00, 45.00),
-(19, 'test', 455.00, 45.00),
-(20, 'test', 455.00, 45.00),
-(21, 'test', 455.00, 45.00),
-(22, 'test', 455.00, 45.00),
-(23, 'test', 455.00, 45.00),
-(24, 'test', 455.00, 45.00),
-(25, 'test', 455.00, 45.00),
-(26, 'test', 455.00, 45.00),
-(27, 'test', 455.00, 45.00),
-(28, 'test', 455.00, 45.00),
-(29, 'test', 455.00, 45.00),
-(30, 'test', 455.00, 45.00),
-(31, 'test ahmad', 123.00, 123.00),
-(32, 'Edit', 12.00, 12.00),
-(33, 'test,Shibli', 0.00, 0.00),
-(34, 'test,Shibli,test ahmad,test,Shibli', 0.00, 0.00),
-(35, 'test,Hamza', 0.00, 0.00),
-(36, 'testing error', 456.00, 456.00);
+INSERT INTO `raw_material` (`_id`, `name`, `old_rate`, `final_rate`, `addedOn`) VALUES
+(37, 'Shibli', 10.00, 10.00, '2024-07-28 21:42:29'),
+(38, 'Ahmad', 20.00, 20.00, '2024-07-28 21:42:29'),
+(39, 'Raza', 30.00, 30.00, '2024-07-28 21:42:29'),
+(40, 'Mohammad', 90.00, 90.00, '2024-07-28 21:42:29'),
+(41, 'Sarim', 40.00, 40.00, '2024-07-28 21:42:29'),
+(42, 'Syed', 80.00, 80.00, '2024-07-28 21:42:29'),
+(43, 'Hamza', 100.00, 100.00, '2024-07-28 21:42:29'),
+(44, 'Hussain', 200.00, 200.00, '2024-07-28 21:42:29');
 
 -- --------------------------------------------------------
 
@@ -334,7 +238,8 @@ CREATE TABLE `syrup` (
   `is_noe` int(2) NOT NULL,
   `is_nod` int(2) NOT NULL,
   `ic_noe` int(2) NOT NULL,
-  `ic_nod` int(2) NOT NULL
+  `ic_nod` int(2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -354,7 +259,8 @@ CREATE TABLE `tablet` (
   `gr_nod` float(5,3) NOT NULL,
   `tb_noe` int(2) NOT NULL,
   `tb_nod` float(5,3) NOT NULL,
-  `spd` float(7,2) NOT NULL
+  `spd` float(7,2) NOT NULL,
+  `addedOn` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -372,40 +278,6 @@ CREATE TABLE `test` (
   `price` decimal(10,2) NOT NULL,
   `final` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `test`
---
-
-INSERT INTO `test` (`_id`, `name`, `value`, `work`, `cost`, `price`, `final`) VALUES
-(1, '31', '35', '', 0.00, 0.00, ''),
-(2, '32', '35', '', 0.00, 0.00, ''),
-(3, '13', '36', '', 0.00, 0.00, ''),
-(4, '14', '36', '', 0.00, 0.00, ''),
-(5, '15', '36', '', 0.00, 0.00, ''),
-(6, '16', '36', '', 0.00, 0.00, ''),
-(7, '17', '36', '', 0.00, 0.00, ''),
-(8, '14', '37', '', 0.00, 0.00, ''),
-(9, '15', '37', '', 0.00, 0.00, ''),
-(10, '14', '37', '', 0.00, 0.00, ''),
-(11, '15', '37', '', 0.00, 0.00, ''),
-(12, '14', '37', '', 0.00, 0.00, ''),
-(13, '15', '37', '', 0.00, 0.00, ''),
-(14, '33', '39', '', 0.00, 0.00, ''),
-(15, '33', '39', '', 0.00, 0.00, ''),
-(16, '11', '44', '', 0.00, 0.00, ''),
-(17, '24', '45', '', 0.00, 0.00, ''),
-(18, '31', '45', '', 0.00, 0.00, ''),
-(19, '32', '45', '', 0.00, 0.00, ''),
-(20, '10', '46', '', 0.00, 0.00, ''),
-(21, '11', '46', '', 0.00, 0.00, ''),
-(22, '12', '46', '', 0.00, 0.00, ''),
-(23, '14', '47', '', 0.00, 0.00, ''),
-(24, '15', '47', '', 0.00, 0.00, ''),
-(25, '16', '47', '', 0.00, 0.00, ''),
-(26, '14', '47', '', 0.00, 0.00, ''),
-(27, '15', '47', '', 0.00, 0.00, ''),
-(28, '16', '47', '', 0.00, 0.00, '');
 
 --
 -- Indexes for dumped tables
@@ -517,13 +389,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `arksaji`
 --
 ALTER TABLE `arksaji`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dawasaji`
 --
 ALTER TABLE `dawasaji`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -535,55 +407,55 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `grinding`
 --
 ALTER TABLE `grinding`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `labour_in_packing`
 --
 ALTER TABLE `labour_in_packing`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `lot_ghan`
 --
 ALTER TABLE `lot_ghan`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `packaging_material`
 --
 ALTER TABLE `packaging_material`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `raw_material`
 --
 ALTER TABLE `raw_material`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `syrup`
 --
 ALTER TABLE `syrup`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tablet`
 --
 ALTER TABLE `tablet`
-  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `_id` int(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `test`
