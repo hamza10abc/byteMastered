@@ -53,13 +53,6 @@
                         </thead>
                         <tbody>
 
-
-
-
-
-
-
-
                             <?php
                             $sql = "SELECT * FROM `packaging_material`";
                             $result = mysqli_query($conn, $sql);
@@ -78,7 +71,7 @@
                                 $unitLot = 3; //??
                                 $totalCostLot = $totalCost * $unitLot;
                                 $sno += 1;
-                                echo "<tr class='text-gray-700 dark:text-gray-100'>
+                                echo "<tr class='text-gray-700 dark:text-black'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
                                 <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
