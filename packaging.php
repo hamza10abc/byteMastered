@@ -106,7 +106,7 @@
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    " . $unitLot . "
+                                    EMPTY
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $totalCostLot . "
