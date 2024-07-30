@@ -73,9 +73,18 @@
                                     $type = $prodRow['type'];
                                     $size = $prodRow['sizes'];
                                 }
+
+
+                                
+                                $sqlLabour = "SELECT unit_prds_per_ghan FROM labour_in_packing WHERE pid = $productId";
+                                $resultLabour = mysqli_query($conn, $sqlLabour);
+                                while ($labourRow = mysqli_fetch_assoc($resultLabour)) {
+                                    $uL = $labourRow['unit_prds_per_ghan'];
+                                }
+
                                 $idRM = $row['_id'];
                                 $totalCost = $row['cover_box'] + $row['jar'] + $row['label'] + $row['cartoon'] + $row['cap'];
-                                $unitLot = 3; //??
+                                $unitLot = $uL;
                                 $totalCostLot = $totalCost * $unitLot;
                                 $sno += 1;
                                 echo "<tr class='text-gray-700 dark:text-gray-100'>
@@ -106,7 +115,7 @@
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    EMPTY
+                                    " . $unitLot . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                                     " . $totalCostLot . "

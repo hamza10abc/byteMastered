@@ -71,13 +71,18 @@
                 $sqlPackMaterial = "SELECT packaging_material.pid, packaging_material.cover_box, packaging_material.label, packaging_material.jar, packaging_material.cartoon, packaging_material.cap, product._id from packaging_material JOIN product on packaging_material.pid = product._id WHERE product._id = $idProd;";
                 $resultPackMaterial = mysqli_query($conn, $sqlPackMaterial);
                 while ($rowPackMat = mysqli_fetch_assoc($resultPackMaterial)) {
+                    $sqlLabour = "SELECT unit_prds_per_ghan FROM labour_in_packing WHERE pid = $idProd";
+                    $resultLabour = mysqli_query($conn, $sqlLabour);
+                    while ($labourRow = mysqli_fetch_assoc($resultLabour)) {
+                        $uL = $labourRow['unit_prds_per_ghan'];
+                    }
                     $coverBox = $rowPackMat['cover_box'];
                     $jar = $rowPackMat['jar'];
                     $label = $rowPackMat['label'];
                     $cartoon = $rowPackMat['cartoon'];
                     $cap = $rowPackMat['cap'];
                     $totalCost = $coverBox + $jar + $label + $cartoon + $cap;
-                    $unitLot = 3; //??
+                    $unitLot = $uL;
                     $totalCostLot = $totalCost * $unitLot;
                 }
 
@@ -124,16 +129,16 @@
                     $lotData = $rowLot['pks_output'];
                 }
 
-                
-                $overheadTotal = ($totalCostOfRawMat + $totalCostLot + $totalCostLabour)*6/94;
+
+                $overheadTotal = ($totalCostOfRawMat + $totalCostLot + $totalCostLabour) * 6 / 94;
                 $primeCost = $totalCostOfRawMat + $totalCostLot + $totalCostLabour + $overheadTotal;
                 $lotDataLink = $lotData;
-                $primeCostPerUnit = $primeCost/$lotDataLink;
-                $freight = $primeCostPerUnit*0.015;
+                $primeCostPerUnit = $primeCost / $lotDataLink;
+                $freight = $primeCostPerUnit * 0.015;
                 $costOfSale = $primeCostPerUnit + $freight;
                 $wholeSalePrice = 10; //???
                 $profitPerUnit = $wholeSalePrice - $primeCostPerUnit;
-  
+
                 $sno += 1;
                 echo "
                     <tr class='text-gray-700 dark:text-gray-100'>
