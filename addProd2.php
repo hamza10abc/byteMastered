@@ -145,7 +145,7 @@ $insert = false;
                 <form action="addProd2.php" method="post">
                     <input type="hidden" name="addComplete" value="addComplete">
                     <input type="hidden" name="productId" value="<?=$prodId?>">
-                    <table class="items-center w-full bg-transparent border-collapse">
+                    <table class='items-center w-full bg-transparent border-collapse display' id='example'>
                         <thead>
                             <tr>
                                 <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">S.No.</th>
@@ -205,3 +205,5 @@ $insert = false;
 
     </div>
 </div>
+
+<?php include 'includes/_bottombar.php';?>
