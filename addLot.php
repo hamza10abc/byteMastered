@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
             </div>
                 ";
-        echo "<meta http-equiv='refresh' content='3;url=addProd4.php' />";
+        echo "<meta http-equiv='refresh' content='3;url=addProd4.php?updateType=new&id=$prodId' />";
     }
     ?>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="addLot.php" method="post">
+                <form action="addLot.php?updateType=new&id=<?=$prodId?>" method="post">
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of Product</label>
                         <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name of Product" value="<?= $prodName ?> - <?= $sizes ?>" readonly />

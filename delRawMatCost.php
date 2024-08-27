@@ -4,15 +4,15 @@
     $idRM = $_GET['rmid'];
     $page = $_GET['page'];
     if($page == 'As'){
-        $actionLink = 'addProdArk.php';
-    }else if($page == 'T'){
-        $actionLink = 'addProdTab.php';
-    }else if($page == 'Ds'){
-        $actionLink = 'addProdDawa.php';
-    }else if($page == 'S'){
-        $actionLink = 'addProdSyrup.php';
-    }else if($page == 'P'){
-        $actionLink = 'addProdPowder.php';
+        $actionLink = "addProdArk.php?id=".$idProd."&type=".$page."&updateType=new";
+    }else if($page == "T"){
+        $actionLink = "addProdTab.php?id=".$idProd."&type=".$page."&updateType=new";
+    }else if($page == "Ds"){
+        $actionLink = "addProdDawa.php?id=".$idProd."&type=".$page."&updateType=new";
+    }else if($page == "S"){
+        $actionLink = "addProdSyrup.php?id=".$idProd."&type=".$page."&updateType=new";
+    }else if($page == "P"){
+        $actionLink = "addProdPowder.php?id=".$idProd."&type=".$page."&updateType=new";
     }else{
         $actionLink = "404NotFound.php";
     }

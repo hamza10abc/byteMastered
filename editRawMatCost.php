@@ -4,16 +4,17 @@ include 'includes/_topbar.php';
 $idProd = $_GET['pid'];
 $idRM = $_GET['rmid'];
 $page = $_GET['page'];
+$updateType = $_GET['updateType'];
 if ($page == 'As') {
-    $actionLink = 'addProdArk.php';
+    $actionLink = "addProdArk.php?id=".$idProd."&type=".$page."&updateType=".$updateType."";
 } else if ($page == 'T') {
-    $actionLink = 'addProdTab.php';
-} else if ($page == 'Ds') {
-    $actionLink = 'addProdDawa.php';
-} else if ($page == 'S') {
-    $actionLink = 'addProdSyrup.php';
-} else if ($page == 'P') {
-    $actionLink = 'addProdPowder.php';
+    $actionLink = "addProdTab.php?id=".$idProd."&type=".$page."&updateType=".$updateType."";
+} else if ($page == "Ds") {
+    $actionLink = "addProdDawa.php?id=".$idProd."&type=".$page."&updateType=".$updateType."";
+} else if ($page == "S") {
+    $actionLink = "addProdSyrup.php?id=".$idProd."&type=".$page."&updateType=".$updateType."";
+} else if ($page == "P") {
+    $actionLink = "addProdPowder.php?id=".$idProd."&type=".$page."&updateType=".$updateType."";
 } else {
     $actionLink = "404NotFound.php";
 }
@@ -134,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="editRawMatCost.php?pid=<?= $idProd ?>&rmid=<?= $idRM ?>&page=<?= $page ?>" method="post">
+                <form action="editRawMatCost.php?pid=<?= $idProd ?>&rmid=<?= $idRM ?>&page=<?= $page ?>&updateType=<?=$updateType?>" method="post">
 
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of the raw material</label>

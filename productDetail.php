@@ -8,6 +8,20 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     $prodName = $row['name'];
     $size = $row['sizes'];
 }
+
+if ($type == 'As') {
+    $actionLink = "addProdArk.php?id=".$prodId."&type=".$type."&updateType=edit";
+} else if ($type == 'T') {
+    $actionLink = "addProdTab.php?id=".$prodId."&type=".$type."&updateType=edit";
+} else if ($type == "Ds") {
+    $actionLink = "addProdDawa.php?id=".$prodId."&type=".$type."&updateType=edit";
+} else if ($type == "S") {
+    $actionLink = "addProdSyrup.php?id=".$prodId."&type=".$type."&updateType=edit";
+} else if ($type == "P") {
+    $actionLink = "addProdPowder.php?id=".$prodId."&type=".$type."&updateType=edit";
+} else {
+    $actionLink = "404NotFound.php";
+}
 ?>
 
 
@@ -41,7 +55,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     </div>
 
     <div class="font-medium text-center m-4 ">
-        <a href='editProd.php?id=<?= $prodId ?>'>
+        <a href='editProd.php?id=<?= $prodId ?>&updateType=edit'>
             <button id="?" class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                 <i class='bx bxs-edit-alt'></i>
                 <span class='ml-1'>Edit</span>
@@ -120,7 +134,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editArk.php?id=" . $idRM . "'>
+                                    <a href='editArk.php?id=" . $idRM . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -205,7 +219,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editDawa.php?id=" . $idRM . "'>
+                                    <a href='editDawa.php?id=" . $idRM . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -318,7 +332,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editTablet.php?id=" . $idRM . "'>
+                                    <a href='editTablet.php?id=" . $idRM . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -427,7 +441,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editSyrup.php?id=" . $idRM . "'>
+                                    <a href='editSyrup.php?id=" . $idRM . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -530,7 +544,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $totalCost . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editGrind.php?id=" . $idRM . "'>
+                                    <a href='editGrind.php?id=" . $idRM . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -643,7 +657,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     </div>
 
     <div class="font-medium text-center m-4 ">
-        <a href='editRawMatCost.php?pid=<?= $prodId ?>&rmid=<?= $rawMatID ?>&page=<?= $type ?>'>
+        <a href='<?=$actionLink?>'>
             <button id="" class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                 <i class='bx bxs-edit-alt'></i>
                 <span class='ml-1'>Edit</span>
@@ -776,7 +790,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
     </div>
 
     <div class="font-medium text-center m-4 ">
-        <a href='editLabPack.php?id=<?= $idRM ?>'>
+        <a href='editLabPack.php?id=<?= $idRM ?>&updateType=edit'>
             <button id="?" class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                 <i class='bx bxs-edit-alt'></i>
                 <span class='ml-1'>Edit</span>
@@ -895,7 +909,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
 
 
     <div class="font-medium text-center m-4 ">
-        <a href='editPack.php?id=<?= $idPack ?>'>
+        <a href='editPack.php?id=<?= $idPack ?>&updateType=edit'>
             <button id="?" class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                 <i class='bx bxs-edit-alt'></i>
                 <span class='ml-1'>Edit</span>
@@ -993,7 +1007,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                 </td>
                                 
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editLot.php?id=" . $row['_id'] . "'>
+                                    <a href='editLot.php?id=" . $row['_id'] . "&updateType=edit'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
