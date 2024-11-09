@@ -4,7 +4,7 @@
     <h1 style="font-size: x-large; color: red;">OOPS!!! Its a dead end...</h1>
 </div>
 <div style="display: flex; justify-content: center;">
-    <h3>Go back Simon</h3>
+    <h3>Go back</h3>
 </div>
 
 
