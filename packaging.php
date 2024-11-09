@@ -1,5 +1,5 @@
 <?php include 'includes/_topbar.php' ?>
-
+<script>var exportFilename = 'Packaging';</script>
 
 <!-- Content -->
 <div class="p-6">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="p-4 col-start-4">
                     <a href="#">
-                        <button class="bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button type="submit" onclick="doit('xlsx');" class="bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
                             </svg>
@@ -66,9 +66,18 @@
                                     $type = $prodRow['type'];
                                     $size = $prodRow['sizes'];
                                 }
+
+
+                                
+                                $sqlLabour = "SELECT unit_prds_per_ghan FROM labour_in_packing WHERE pid = $productId";
+                                $resultLabour = mysqli_query($conn, $sqlLabour);
+                                while ($labourRow = mysqli_fetch_assoc($resultLabour)) {
+                                    $uL = $labourRow['unit_prds_per_ghan'];
+                                }
+
                                 $idRM = $row['_id'];
                                 $totalCost = $row['cover_box'] + $row['jar'] + $row['label'] + $row['cartoon'] + $row['cap'];
-                                $unitLot = 3; //??
+                                $unitLot = $uL;
                                 $totalCostLot = $totalCost * $unitLot;
                                 $sno += 1;
                                 echo "<tr class='text-gray-700 dark:text-black'>

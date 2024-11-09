@@ -119,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div>
 
 
-                <form action="addGrind.php" method="post">
+                <form action="addGrind.php?updateType=new" method="post">
                     <input type="hidden" name="pid" value="<?= $prodId ?>">
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Employees</label>
-                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" value="<?= $prodId ?> - <?= $prodName; ?> - <?= $type ?>" readonly />
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" value="<?= $prodName; ?>" readonly />
                     </div>
                     <div class="mb-6">
                         <label for="input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input in kg</label>

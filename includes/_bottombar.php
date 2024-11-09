@@ -220,4 +220,68 @@
 
 </body>
 
+<!-- export to xlsx code -->
+<script type="text/javascript" src="//unpkg.com/xlsx/dist/shim.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/blob.js@1.0.1/Blob.js"></script>
+<script type="text/javascript" src="//unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
+
+<script type="text/javascript">
+function removeColumn(data, columnName) {
+    // Find the index of the column to remove
+    const headerRow = data[0];
+    const columnIndex = headerRow.indexOf(columnName);
+
+    if (columnIndex === -1) return data; // Column not found
+
+    // Remove the column from each row
+    return data.map(row => row.filter((_, index) => index !== columnIndex));
+}
+
+function tableToSheet(tableId, columnToExclude) {
+    const table = document.getElementById(tableId);
+    const ws = XLSX.utils.table_to_sheet(table);
+    
+    // Convert worksheet to JSON
+    const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+    
+    // Remove unwanted column
+    const filteredData = removeColumn(data, columnToExclude);
+    
+    // Convert back to worksheet
+    return XLSX.utils.aoa_to_sheet(filteredData);
+}
+
+function doit(type, fn, dl) {
+    const ws = tableToSheet('example', 'Manage'); // Exclude the 'Manage' column
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet JS");
+    var filename = exportFilename || 'FileName';
+    
+    return dl ?
+        XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
+        XLSX.writeFile(wb, filename + '.' + (type || 'xlsx'));
+}
+
+function tableau(pid, iid, fmt, ofile) {
+    if (typeof Downloadify !== 'undefined') Downloadify.create(pid, {
+        swf: 'downloadify.swf',
+        downloadImage: 'download.png',
+        width: 100,
+        height: 30,
+        filename: ofile,
+        data: function() { return doit(fmt, ofile, true); },
+        transparent: false,
+        append: false,
+        dataType: 'base64',
+        onComplete: function() { alert('Your File Has Been Saved!'); },
+        onCancel: function() { alert('You have cancelled the saving of this file.'); },
+        onError: function() { alert('You must put something in the File Contents or there will be nothing to save!'); }
+    });
+}
+
+tableau('xlsxbtn', 'xportxlsx', 'xlsx', 'test.xlsx');
+</script>
+<!-- export to xlsx code -->
+
 </html>

@@ -1460,7 +1460,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
             <span>Add Raw Material</span>
           </button>
         </a>
-        <a href="addProd.php">
+        <a href="addProd.php?updateType=new">
           <button id="add-new" class="ml-5">
             <i class='bx bx-plus-medical'></i>
             <span>Add Product</span>

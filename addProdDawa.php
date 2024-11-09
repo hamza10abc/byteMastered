@@ -1,10 +1,20 @@
 <?php include 'includes/_topbar.php' ?>
 <?php
-$sqlProdFind = "SELECT * FROM product_details ORDER BY _id DESC LIMIT 1";
-$runSqlProdFind = mysqli_query($conn, $sqlProdFind);
-while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
-    $productFetchID = $row['pid'];
+
+$productFetchID = $_GET['id'];
+$updateType = $_GET['updateType'];
+if ($updateType == 'new') {
+    $nextButton = "addLot.php?updateType=new&id=$productFetchID";
+    // $sqlProdFind = "SELECT * FROM product_details ORDER BY _id DESC LIMIT 1";
+    // $runSqlProdFind = mysqli_query($conn, $sqlProdFind);
+    // while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
+    //     $productFetchID = $row['pid'];
+    // }
+} else {
+    $nextButton = "viewProd.php?updateType=new&id=$productFetchID";
+    $productFetchID = $_GET['id'];
 }
+
 $sqlProdName = "SELECT * FROM product where _id = $productFetchID";
 $runSqlProdFind = mysqli_query($conn, $sqlProdName);
 while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
@@ -87,13 +97,22 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
 
 
 
-            <div class="flex justify-between mb-4 items-start">
-                <div class="font-medium">
-                    <h2 class="text-xl">
-                        Add Product Dawasaji - <i> <mark><?= $productName ?></mark></i>
-                    </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div class="flex justify-between mb-4 items-start">
+                    <div class="font-medium">
+                        <h2 class="text-xl">
+                            Add Product Dawasaji - <i> <mark><?= $productName ?></mark></i>
+                        </h2>
+                    </div>
                 </div>
-
+                <div class="p-4 col-start-4">
+                    <a href="addProd2.php?updateType=new">
+                        <button class="bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            <i class='bx bx-plus-medical'></i>
+                            <span class="mx-1">Add Item</span>
+                        </button>
+                    </a>
+                </div>
             </div>
 
             <div>
@@ -112,7 +131,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         <?php
                         $sql = "SELECT * FROM `product_details` WHERE pid = $productFetchID";
                         $result = mysqli_query($conn, $sql);
@@ -151,7 +170,7 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                                     " . $costOfRM . "
                                 </td>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                                    <a href='editRawMatCost.php?pid=" . $productFetchID . "&rmid=" . $rawMatID . "&page=" . 'Ds' . "'>
+                                    <a href='editRawMatCost.php?pid=" . $productFetchID . "&rmid=" . $rawMatID . "&page=" . 'Ds' . "&updateType=" . $updateType . "'>
                                         <button id=" . $row['_id'] . " class='edit bg-blue-300 hover:bg-blue-400 text-blue-800 font-bold py-2 px-4 rounded inline-flex items-center'>
                                             <i class='bx bxs-edit-alt'></i>
                                             <span class='ml-1'>Edit</span>
@@ -168,26 +187,26 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
                         }
                         ?>
 
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Total:</td>
-                                <td>
-                                    &nbsp;&nbsp; <?= $totalRawMatUsed ?>
-                                </td>
-                                <td>
-                                    &nbsp; <?= $totalCostOfRawMat ?>
-                                </td>
-                            </tr>
-                        </tfoot>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total:</td>
+                            <td>
+                                &nbsp;&nbsp; <?= $totalRawMatUsed ?>
+                            </td>
+                            <td>
+                                &nbsp; <?= $totalCostOfRawMat ?>
+                            </td>
+                        </tr>
+                    </tfoot>
 
                     </tbody>
                 </table>
 
 
                 <div class="flex justify-between mb-4 items-start m-4">
-                    <a href="addLot.php">
+                    <a href="<?= $nextButton ?></a>">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
                     </a>
 
@@ -203,8 +222,8 @@ while ($row = mysqli_fetch_assoc($runSqlProdFind)) {
 
 <script>
     function sureDel() {
-  alert("Are you sure you want to delete the item?");
-}
+        alert("Are you sure you want to delete the item?");
+    }
 </script>
 
 
