@@ -74,7 +74,7 @@
                                 $totalEmpDays = ($row['lc_noe'] * $row['lc_nod']) + ($row['mx_noe'] * $row['mx_nod']) + ($row['gr_noe'] * $row['gr_nod']) + ($row['tb_noe'] * $row['tb_nod']);
                                 $totalCost = 1; //????
                                 $sno += 1;
-                                echo "<tr class='text-gray-700 dark:text-gray-100'>
+                                echo "<tr class='text-gray-700 dark:text-black'>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>" . $sno . "</td>
                                 <th class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>" . $name . "</th>
                                 <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
