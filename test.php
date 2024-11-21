@@ -10,7 +10,7 @@
                 <div class="flex justify-between mb-4 items-start">
                     <div class="font-medium">
                         <h2 class="text-xl">
-                            Arksaji
+                            Arksaji 23
                         </h2>
                     </div>
                 </div>
