@@ -2,41 +2,40 @@
 include 'includes/_topbar.php';
 
 $insert = false;
-    if ($_SERVER['REQUEST_METHOD'] =='POST'){
-        $name=$_POST['name'];
-        $sizes=$_POST['sizes'];
-        $type=$_POST['type'];
-        if($type === 'As'){
-            $actionLink = 'addArk.php?updateType=new';
-        }else if($type === 'T'){
-            $actionLink = 'addTablet.php?updateType=new';
-        }else if($type === 'Ds'){
-            $actionLink = 'addDawa.php?updateType=new';
-        }else if($type === 'S'){
-            $actionLink = 'addSyrup.php?updateType=new';
-        }else if($type === 'P'){
-            $actionLink = 'addGrind.php?updateType=new';
-        }else{
-            $actionLink = "404NotFound.php";
-        }
-        $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
-        $result= mysqli_query($conn, $sql);
-        if($result){
-            $insert = true;
-        }
-        else{
-            echo "try again";
-        }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $sizes = $_POST['sizes'];
+    $type = $_POST['type'];
+    if ($type === 'As') {
+        $actionLink = 'addArk.php?updateType=new';
+    } else if ($type === 'T') {
+        $actionLink = 'addTablet.php?updateType=new';
+    } else if ($type === 'Ds') {
+        $actionLink = 'addDawa.php?updateType=new';
+    } else if ($type === 'S') {
+        $actionLink = 'addSyrup.php?updateType=new';
+    } else if ($type === 'P') {
+        $actionLink = 'addGrind.php?updateType=new';
+    } else {
+        $actionLink = "404NotFound.php";
     }
+    $sql = "INSERT INTO `product` (`name`, `sizes`, `type`) VALUES ('$name', '$sizes', '$type')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $insert = true;
+    } else {
+        echo "try again";
+    }
+}
 ?>
 
 
 <!-- Content -->
 <div class="p-6">
 
-<?php
-        if($insert){
-            echo "
+    <?php
+    if ($insert) {
+        echo "
             <div class='flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800' role='alert'>
                 <svg class='flex-shrink-0 inline w-4 h-4 me-3' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 20 20'>
                     <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z'/>
@@ -47,9 +46,9 @@ $insert = false;
                 </div>
             </div>
                 ";
-                echo "<meta http-equiv='refresh' content='3;url=".$actionLink."' />";
-        }
-        ?>
+        echo "<meta http-equiv='refresh' content='3;url=" . $actionLink . "' />";
+    }
+    ?>
 
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -134,32 +133,27 @@ $insert = false;
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
                         <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz" required />
                     </div>
+
                     <div class="mb-6">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">
-                                --Select the Quantity--
-                            </option>
-                            <option value="10 ML">
-                                10 ML
-                            </option>
-                            <option value="50 ML">
-                                50 ML
-                            </option>
-                            <option value="100 ML">
-                                100 ML
-                            </option>
-                            <option value="10 GM">
-                                10 GM
-                            </option>
-                            <option value="50 GM">
-                                50 GM
-                            </option>
-                            <option value="100 GM">
-                                100 GM
-                            </option>
+                        <label for="product-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type</label>
+                        <select id="product-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">--Select Output Type--</option>
+                            <option value="tablets">TABLETS / PILLS</option>
+                            <option value="ml">Mililiters</option>
+                            <option value="liter">Liters</option>
+                            <option value="gm">Grams</option>
+                            <option value="gr">GR(UNKNOWN)</option>
+                            <option value="kg">Kilograms</option>
                         </select>
                     </div>
+
+                    <div class="mb-6">
+                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                        <select id="quantity" name="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required disabled>
+                            <option value="">--Select the Quantity--</option>
+                        </select>
+                    </div>
+
                     <div class="mb-6">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type</label>
                         <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -188,7 +182,7 @@ $insert = false;
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
                         <!-- <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Previous</button> -->
                     </div>
-                        
+
                 </form>
 
 
@@ -204,3 +198,52 @@ $insert = false;
 
 
 <?php include 'includes/_bottombar.php' ?>
+<script>
+    // Define quantity options for each product type
+    const productQuantities = {
+        tablets: ["9", "10", "25", "50", "100", "1000"],
+        ml: ["5", "10", "15", "20", "40", "50", "100", "125", "200", "300", "380", "500", "750"],
+        liter: ["1"],
+        gm: ["1", "3", "5", "10", "25", "30", "50", "60", "80", "125", "250", "380", "500"],
+        gr: ["60"],
+        kg: ["1"]
+    };
+
+    // Get references to the dropdown elements
+    const productTypeSelect = document.getElementById("product-type");
+    const quantitySelect = document.getElementById("quantity");
+
+    // Function to enable/disable quantity dropdown
+    function toggleQuantityDropdown() {
+        if (productTypeSelect.value) {
+            quantitySelect.disabled = false; // Enable quantity dropdown
+        } else {
+            quantitySelect.disabled = true; // Disable quantity dropdown if no product type selected
+        }
+    }
+
+    // Event listener for product type change
+    productTypeSelect.addEventListener("change", function() {
+        const selectedProduct = productTypeSelect.value;
+
+        // Clear current quantity options
+        quantitySelect.innerHTML = '<option value="">--Select the Quantity--</option>';
+
+        // If a valid product type is selected, update the quantity options
+        if (selectedProduct && productQuantities[selectedProduct]) {
+            const quantities = productQuantities[selectedProduct];
+            quantities.forEach(quantity => {
+                const option = document.createElement("option");
+                option.value = quantity;
+                option.textContent = quantity;
+                quantitySelect.appendChild(option);
+            });
+        }
+
+        // Toggle the state of the quantity dropdown (enabled/disabled)
+        toggleQuantityDropdown();
+    });
+
+    // Initial call to set the correct state of the quantity dropdown
+    toggleQuantityDropdown();
+</script>
