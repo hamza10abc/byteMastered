@@ -51,6 +51,7 @@
                 $nameOfProd = $row['name'];
                 $sizeOfProd = $row['sizes'];
                 $typeOfProd = $row['type'];
+                $wholeSalePrice = $row['wholeSalePrice'];
                 // echo $idProd;
 
 
@@ -137,7 +138,6 @@
                 $primeCostPerUnit = $primeCost / $lotDataLink;
                 $freight = $primeCostPerUnit * 0.015;
                 $costOfSale = $primeCostPerUnit + $freight;
-                $wholeSalePrice = 10; //???
                 $profitPerUnit = $wholeSalePrice - $primeCostPerUnit;
 
                 $sno += 1;
@@ -182,7 +182,7 @@
                             " . $costOfSale . "
                         </td>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                            EMPTY
+                            " . $wholeSalePrice . "
                         </td>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                             " . $profitPerUnit . "
