@@ -4,8 +4,23 @@ include 'includes/_topbar.php';
 $insert = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
-    $sizes = $_POST['sizes'];
+    // $sizes = $_POST['sizes'];
     $type = $_POST['type'];
+
+    if (isset($_POST['sizes_t']) && $_POST['sizes_t'] != "") {
+        $sizes = $_POST['sizes_t'];
+    } else if (isset($_POST['sizes_ml']) && $_POST['sizes_ml'] != "") {
+        $sizes = $_POST['sizes_ml'];
+    } else if (isset($_POST['sizes_l']) && $_POST['sizes_l'] != "") {
+        $sizes = $_POST['sizes_l'];
+    } else if (isset($_POST['sizes_gm']) && $_POST['sizes_gm'] != "") {
+        $sizes = $_POST['sizes_gm'];
+    } else if (isset($_POST['sizes_kg']) && $_POST['sizes_kg'] != "") {
+        $sizes = $_POST['sizes_kg'];
+    } else {
+        $sizes = 'NULL';
+    }
+
     $wholeSalePrice = $_POST['wholeSalePrice'];
     if ($type === 'As') {
         $actionLink = 'addArk.php?updateType=new';
@@ -149,8 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div id="tablets-dropdown" class="mb-6" style="display:none;">
-                        <label for="sized" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tablets / Pills Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label for="sizes_t" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tablets / Pills Quantity</label>
+                        <select name="sizes_t" id="sizes_t" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">
                                 --Select the Quantity--
                             </option>
@@ -164,8 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div id="ml-dropdown" class="mb-6" style="display:none;">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ML Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label for="sizes_ml" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ML Quantity</label>
+                        <select name="sizes_ml" id="sizes_ml" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">
                                 --Select the Quantity--
                             </option>
@@ -187,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- 1L -->
                     <div id="oneL-dropdown" class="mb-6" style="display:none;">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">1L Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label for="sizes_l" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">1L Quantity</label>
+                        <select name="sizes_l" id="sizes_l" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">
                                 --Select the Quantity--
                             </option>
@@ -198,8 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- GM -->
                     <div id="gm-dropdown" class="mb-6" style="display:none;">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GM Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label for="sizes_gm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GM Quantity</label>
+                        <select name="sizes_gm" id="sizes_gm" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">
                                 --Select the Quantity--
                             </option>
@@ -221,8 +236,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- KG -->
                     <div id="kg-dropdown" class="mb-6" style="display:none;">
-                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">KG Quantity</label>
-                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label for="sizes_kg" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">KG Quantity</label>
+                        <select name="sizes_kg" id="sizes_kg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option value="">
                                 --Select the Quantity--
                             </option>
@@ -281,9 +296,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script>
     document.getElementById('product-type').addEventListener('change', function() {
         // Hide all dropdowns initially
-        var allDropdowns = document.querySelectorAll('#tablets-dropdown, #ml-dropdown, #oneL-dropdown, #gm-dropdown, #gr-dropdown, #kg-dropdown');
+        var allDropdowns = document.querySelectorAll('#tablets-dropdown, #ml-dropdown, #oneL-dropdown, #gm-dropdown, #kg-dropdown');
         allDropdowns.forEach(function(dropdown) {
             dropdown.style.display = 'none';
+            // Remove the required attribute for hidden fields
+            var select = dropdown.querySelector('select');
+            if (select) {
+                select.removeAttribute('required');
+            }
         });
 
         // Get the selected output type
@@ -291,15 +311,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Show the appropriate dropdown based on the selected output type
         if (selectedType === 'tablets') {
-            document.getElementById('tablets-dropdown').style.display = 'block';
+            var tabletsDropdown = document.getElementById('tablets-dropdown');
+            tabletsDropdown.style.display = 'block';
+            tabletsDropdown.querySelector('select').setAttribute('required', 'true');
         } else if (selectedType === 'ml') {
-            document.getElementById('ml-dropdown').style.display = 'block';
+            var mlDropdown = document.getElementById('ml-dropdown');
+            mlDropdown.style.display = 'block';
+            mlDropdown.querySelector('select').setAttribute('required', 'true');
         } else if (selectedType === 'liter') {
-            document.getElementById('oneL-dropdown').style.display = 'block';
-        } else if (selectedType === 'gr') {
-            document.getElementById('gr-dropdown').style.display = 'block';
+            var oneLDropdown = document.getElementById('oneL-dropdown');
+            oneLDropdown.style.display = 'block';
+            oneLDropdown.querySelector('select').setAttribute('required', 'true');
+        } else if (selectedType === 'gm') {
+            var gmDropdown = document.getElementById('gm-dropdown');
+            gmDropdown.style.display = 'block';
+            gmDropdown.querySelector('select').setAttribute('required', 'true');
         } else if (selectedType === 'kg') {
-            document.getElementById('kg-dropdown').style.display = 'block';
+            var kgDropdown = document.getElementById('kg-dropdown');
+            kgDropdown.style.display = 'block';
+            kgDropdown.querySelector('select').setAttribute('required', 'true');
         }
     });
 </script>
