@@ -144,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <option value="ml">Mililiters</option>
                             <option value="liter">Liters</option>
                             <option value="gm">Grams</option>
-                            <option value="gr">GR(UNKNOWN)</option>
                             <option value="kg">Kilograms</option>
                         </select>
                     </div>
