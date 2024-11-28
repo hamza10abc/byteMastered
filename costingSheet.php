@@ -116,6 +116,7 @@
                     $costSealing = ($rowLabour['unit_prds_per_ghan'] / $rowLabour['sealing']) * $empCostDay;
                     $costPacking = ($rowLabour['unit_prds_per_ghan'] / $rowLabour['packing']) * $empCostDay;
                     $totalCostLabour = $costFilling + $costPacking + $costSealing;
+                    $totalCostLabourInPackaging = (($rowLabour['unit_prds_per_ghan'] / $rowLabour['filling']) * $rowLabour['other']) + (($rowLabour['unit_prds_per_ghan'] / $rowLabour['sealing']) * $rowLabour['other']) + (($rowLabour['unit_prds_per_ghan'] / $rowLabour['packing']) * $rowLabour['other']);
                 }
 
 
@@ -160,7 +161,7 @@
                             " . $totalCostLabour . "
                         </td>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                            EMPTY
+                            " . $totalCostLabourInPackaging . "
                         </td>
                         <td class='border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                             " . $overheadTotal . "

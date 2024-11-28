@@ -26,7 +26,7 @@ if ($type === 'As') {
 }
 
 $insert = false;
-if ($_SERVER['REQUEST_METHOD'] =='POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $rawMatIds = json_decode($_POST['rawMat']);
     $prodId = $_POST['productId'];
 
@@ -148,6 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] =='POST'){
 
             <div>
                 <form id="rawMatForm" action="addProd2.php?updateType=new" method="post">
+                    <!-- Hidden input to store raw material IDs -->
+                    <input type="hidden" id="rawMatInput" name="rawMat">
                     <input type="hidden" name="addComplete" value="addComplete">
                     <input type="hidden" name="productId" value="<?= $prodId ?>">
                     <div style="display: flex; justify-content: space-between; margin: 10px;">
@@ -170,15 +172,33 @@ if ($_SERVER['REQUEST_METHOD'] =='POST'){
 <script>
     // Initialize Tabulator with Selectable Rows and Ajax Data Fetch
     const table = new Tabulator("#rawMaterialTable", {
-        ajaxURL: "fetchRawMaterials.php",  // URL to fetch raw materials data dynamically
+        ajaxURL: "fetchRawMaterials.php", // URL to fetch raw materials data dynamically
         layout: "fitColumns",
         selectable: true,
-        columns: [
-            { title: "S.No.", field: "sno", width: 100 },
-            { title: "Name", field: "name" },
-            { title: "Old Rate", field: "old_rate" },
-            { title: "Current Rate", field: "final_rate" },
-            { title: "Choose", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false }
+        columns: [{
+                title: "S.No.",
+                field: "sno",
+                width: 100
+            },
+            {
+                title: "Name",
+                field: "name"
+            },
+            {
+                title: "Old Rate",
+                field: "old_rate"
+            },
+            {
+                title: "Current Rate",
+                field: "final_rate"
+            },
+            {
+                title: "Choose",
+                formatter: "rowSelection",
+                titleFormatter: "rowSelection",
+                hozAlign: "center",
+                headerSort: false
+            }
         ]
     });
 
@@ -186,20 +206,45 @@ if ($_SERVER['REQUEST_METHOD'] =='POST'){
     document.getElementById("nameSearch").addEventListener("input", function() {
         const searchTerm = this.value;
         if (searchTerm) {
-            table.setFilter("name", "like", searchTerm);  // Apply filter to "Name" column
+            table.setFilter("name", "like", searchTerm); // Apply filter to "Name" column
         } else {
-            table.clearFilter();  // Clear filter if search box is empty
+            table.clearFilter(); // Clear filter if search box is empty
         }
     });
 
     // Handle Form Submission and Selected Rows
     document.getElementById("rawMatForm").addEventListener("submit", function(e) {
-        e.preventDefault();  // Prevent form default submission
-        const selectedData = table.getSelectedData();  // Get selected rows
-        const selectedIds = selectedData.map(row => row._id);  // Extract _id from each row
+        e.preventDefault(); // Prevent form default submission
+        const selectedData = table.getSelectedData(); // Get selected rows
+        const selectedIds = selectedData.map(row => row._id); // Extract _id from each row
 
-        document.getElementById("rawMatInput").value = JSON.stringify(selectedIds);  // Add IDs to hidden input
+        document.getElementById("rawMatInput").value = JSON.stringify(selectedIds); // Add IDs to hidden input
 
-        this.submit();  // Submit form after setting hidden input
+        this.submit(); // Submit form after setting hidden input
+    });
+</script>
+<script>
+    // JavaScript to handle form submission
+    document.getElementById("rawMatForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Prevent form submission to handle it in JavaScript first
+
+        // Get selected checkboxes
+        const selectedCheckboxes = document.querySelectorAll(".rawMatCheckbox:checked");
+        const selectedIds = Array.from(selectedCheckboxes).map(cb => cb.value); // Get values of selected checkboxes
+
+        // If no checkboxes are selected, alert the user
+        if (selectedIds.length === -1) {
+            // alert("Please select at least one raw material.");
+            // return; // Do not submit the form if no materials are selected
+        }
+        else{
+            return;
+        }
+
+        // Populate the hidden input field with the selected raw material IDs
+        document.getElementById("rawMatInput").value = JSON.stringify(selectedIds);
+
+        // Submit the form after setting the hidden input value
+        this.submit();
     });
 </script>
