@@ -135,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyz" required />
                     </div>
 
+
                     <div class="mb-6">
                         <label for="product-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Output Type</label>
                         <select id="product-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -148,12 +149,88 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </select>
                     </div>
 
-                    <div class="mb-6">
-                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                        <select id="quantity" name="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required disabled>
-                            <option value="">--Select the Quantity--</option>
+                    <div id="tablets-dropdown" class="mb-6" style="display:none;">
+                        <label for="sized" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tablets / Pills Quantity</label>
+                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">
+                                --Select the Quantity--
+                            </option>
+                            <option value="9 pcs">9</option>
+                            <option value="10 pcs">10</option>
+                            <option value="25 pcs">25</option>
+                            <option value="50 pcs">50</option>
+                            <option value="100 pcs">100</option>
+                            <option value="1000 pcs">1000</option>
                         </select>
                     </div>
+
+                    <div id="ml-dropdown" class="mb-6" style="display:none;">
+                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ML Quantity</label>
+                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">
+                                --Select the Quantity--
+                            </option>
+                            <option value="5 ML">5</option>
+                            <option value="10 ML">10</option>
+                            <option value="15 ML">15</option>
+                            <option value="20 ML">20</option>
+                            <option value="40 ML">40</option>
+                            <option value="50 ML">50</option>
+                            <option value="100 ML">100</option>
+                            <option value="125 ML">125</option>
+                            <option value="200 ML">200</option>
+                            <option value="300 ML">300</option>
+                            <option value="380 ML">380</option>
+                            <option value="500 ML">500</option>
+                            <option value="750 ML">750</option>
+                        </select>
+                    </div>
+
+                    <!-- 1L -->
+                    <div id="oneL-dropdown" class="mb-6" style="display:none;">
+                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">1L Quantity</label>
+                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">
+                                --Select the Quantity--
+                            </option>
+                            <option value="1 L">1</option>
+                        </select>
+                    </div>
+
+                    <!-- GM -->
+                    <div id="gm-dropdown" class="mb-6" style="display:none;">
+                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GM Quantity</label>
+                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">
+                                --Select the Quantity--
+                            </option>
+                            <option value="1 g">1</option>
+                            <option value="3 g">3</option>
+                            <option value="5 g">5</option>
+                            <option value="10 g">10</option>
+                            <option value="25 g">25</option>
+                            <option value="30 g">30</option>
+                            <option value="50 g">50</option>
+                            <option value="60 g">60</option>
+                            <option value="80 g">80</option>
+                            <option value="125 g">125</option>
+                            <option value="250 g">250</option>
+                            <option value="380 g">380</option>
+                            <option value="500 g">500</option>
+                        </select>
+                    </div>
+
+                    <!-- KG -->
+                    <div id="kg-dropdown" class="mb-6" style="display:none;">
+                        <label for="sizes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">KG Quantity</label>
+                        <select name="sizes" id="sizes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">
+                                --Select the Quantity--
+                            </option>
+                            <option value="1 Kg">1</option>
+                        </select>
+                    </div>
+
 
                     <div class="mb-6">
                         <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type</label>
@@ -184,7 +261,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="number" step="any" id="wholeSalePrice" name="wholeSalePrice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123.45" required />
                     </div>
 
-
                     <div style="display: flex; justify-content: space-between; margin: 10px;">
 
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
@@ -203,55 +279,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 <!-- End Content -->
+<script>
+    document.getElementById('product-type').addEventListener('change', function() {
+        // Hide all dropdowns initially
+        var allDropdowns = document.querySelectorAll('#tablets-dropdown, #ml-dropdown, #oneL-dropdown, #gm-dropdown, #gr-dropdown, #kg-dropdown');
+        allDropdowns.forEach(function(dropdown) {
+            dropdown.style.display = 'none';
+        });
+
+        // Get the selected output type
+        var selectedType = this.value;
+
+        // Show the appropriate dropdown based on the selected output type
+        if (selectedType === 'tablets') {
+            document.getElementById('tablets-dropdown').style.display = 'block';
+        } else if (selectedType === 'ml') {
+            document.getElementById('ml-dropdown').style.display = 'block';
+        } else if (selectedType === 'liter') {
+            document.getElementById('oneL-dropdown').style.display = 'block';
+        } else if (selectedType === 'gr') {
+            document.getElementById('gr-dropdown').style.display = 'block';
+        } else if (selectedType === 'kg') {
+            document.getElementById('kg-dropdown').style.display = 'block';
+        }
+    });
+</script>
 
 
 <?php include 'includes/_bottombar.php' ?>
-<script>
-    // Define quantity options for each product type
-    const productQuantities = {
-        tablets: ["9", "10", "25", "50", "100", "1000"],
-        ml: ["5", "10", "15", "20", "40", "50", "100", "125", "200", "300", "380", "500", "750"],
-        liter: ["1"],
-        gm: ["1", "3", "5", "10", "25", "30", "50", "60", "80", "125", "250", "380", "500"],
-        gr: ["60"],
-        kg: ["1"]
-    };
-
-    // Get references to the dropdown elements
-    const productTypeSelect = document.getElementById("product-type");
-    const quantitySelect = document.getElementById("quantity");
-
-    // Function to enable/disable quantity dropdown
-    function toggleQuantityDropdown() {
-        if (productTypeSelect.value) {
-            quantitySelect.disabled = false; // Enable quantity dropdown
-        } else {
-            quantitySelect.disabled = true; // Disable quantity dropdown if no product type selected
-        }
-    }
-
-    // Event listener for product type change
-    productTypeSelect.addEventListener("change", function() {
-        const selectedProduct = productTypeSelect.value;
-
-        // Clear current quantity options
-        quantitySelect.innerHTML = '<option value="">--Select the Quantity--</option>';
-
-        // If a valid product type is selected, update the quantity options
-        if (selectedProduct && productQuantities[selectedProduct]) {
-            const quantities = productQuantities[selectedProduct];
-            quantities.forEach(quantity => {
-                const option = document.createElement("option");
-                option.value = quantity;
-                option.textContent = quantity;
-                quantitySelect.appendChild(option);
-            });
-        }
-
-        // Toggle the state of the quantity dropdown (enabled/disabled)
-        toggleQuantityDropdown();
-    });
-
-    // Initial call to set the correct state of the quantity dropdown
-    toggleQuantityDropdown();
-</script>
